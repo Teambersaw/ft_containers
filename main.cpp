@@ -78,12 +78,15 @@
 
 #include <iostream>
 #include "is_integral.hpp"
+#include <type_traits>
+
+using namespace std;
 
 int main() {
   std::cout << std::boolalpha;
   std::cout << "is_integral:" << std::endl;
-  std::cout << "char: " << ft::is_integral<char>::value << std::endl;
-  std::cout << "int: " << ft::is_integral<int>::value << std::endl;
-  std::cout << "float: " << ft::is_integral<float>::value << std::endl;
+  std::cout << "char: " << is_integral<char>::value << std::endl;
+  std::cout << "int: " << is_integral<int>::value << std::endl;
+  std::cout << "float: " << is_integral<float>::value << std::endl;
   return 0;
 }
