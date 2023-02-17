@@ -78,9 +78,8 @@
 
 #include <iostream>
 #include "is_integral.hpp"
-#include <type_traits>
 
-using namespace std;
+using namespace ft;
 
 int main() {
   std::cout << std::boolalpha;

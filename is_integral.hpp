@@ -6,7 +6,7 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:12:35 by jrossett          #+#    #+#             */
-/*   Updated: 2023/02/15 15:36:40 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/02/17 12:01:05 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ namespace ft
 	template <>
 	struct is_integral<unsigned long long int> : public ft::integral_constant<unsigned long long int, true> {};
 
+	template <bool Cond, class T = void>
+	struct enable_if {};
+
+	template <class T>
+	struct enable_if<true, T> { typedef T type; };
 }
 
 #endif
