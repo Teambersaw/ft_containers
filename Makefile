@@ -1,6 +1,6 @@
 CXX= c++
 
-CXXFLAGS= -Wall -Wextra -Werror -MMD -std=c++98
+CXXFLAGS= -Wall -Wextra -Werror -MMD
 
 SRCS= $(wildcard *.cpp)
 

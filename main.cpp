@@ -1,5 +1,4 @@
-#include "pair.hpp"
-#include "lexicographical_compare.hpp"
+
 
 
 // int main()
@@ -76,16 +75,16 @@
 //   return 0;
 // }
 
-#include <iostream>
-#include "is_integral.hpp"
+
+// int main() {
+//   std::cout << std::boolalpha;
+//   std::cout << "is_integral:" << std::endl;
+//   std::cout << "char: " << is_integral<char>::value << std::endl;
+//   std::cout << "int: " << is_integral<int>::value << std::endl;
+//   std::cout << "float: " << is_integral<float>::value << std::endl;
+//   return 0;
+// }
+
+#include <vector>
 
 using namespace ft;
-
-int main() {
-  std::cout << std::boolalpha;
-  std::cout << "is_integral:" << std::endl;
-  std::cout << "char: " << is_integral<char>::value << std::endl;
-  std::cout << "int: " << is_integral<int>::value << std::endl;
-  std::cout << "float: " << is_integral<float>::value << std::endl;
-  return 0;
-}
