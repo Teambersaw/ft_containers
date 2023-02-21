@@ -76,39 +76,180 @@
 #include <vector>
 #include "vector.hpp"
 
-//using namespace ft;
+// using namespace ft;
 
-int main() {
-	std::vector<int> v1;
-	int tab[] = {1, 2, 3, 3, 3};
-	ft::vector<int> v2(tab, tab + 5);
+// int main() {
+// 	int tab[] = {1, 2, 3, 3, 3};
+// 	int tab2[] = {1, 2, 3, 3, 3};
+// 	std::vector<int> v1(tab2, tab2 + 5);
+// 	ft::vector<int> v2(tab, tab + 5);
 
-	v1.push_back(1);
-	v1.push_back(2);
-	v1.push_back(3);
-	v1.push_back(3);
-	v1.push_back(3);
-	std::cout << "Size: " << v1.size() << "\nCapacity: " << v1.capacity() << std::endl;
-	v1.reserve(100);
-	std::cout << "Size: " << v1.size() << "\nCapacity: " << v1.capacity() << std::endl;
-	std::cout << v1[1] << std::endl;
-	v1.resize(2);
-	std::cout << "Size: " << v1.size() << "\nCapacity: " << v1.capacity() << std::endl;
-	v1.resize(120);
-	std::cout << "Size: " << v1.size() << "\nCapacity: " << v1.capacity() << std::endl;
-	std::cout << v1[1] << std::endl;
-	std::cout << v1[40] << std::endl;
+// 	std::cout << "Size: " << v1.size() << "\nCapacity: " << v1.capacity() << std::endl;
+// 	v1.reserve(100);
+// 	std::cout << "Size: " << v1.size() << "\nCapacity: " << v1.capacity() << std::endl;
+// 	std::cout << v1[1] << std::endl;
+// 	v1.resize(2);
+// 	std::cout << "Size: " << v1.size() << "\nCapacity: " << v1.capacity() << std::endl;
+// 	v1.resize(120);
+// 	std::cout << "Size: " << v1.size() << "\nCapacity: " << v1.capacity() << std::endl;
+// 	std::cout << v1[1] << std::endl;
+// 	std::cout << v1[40] << std::endl;
+// 	std::cout << "LE MIENS : \n" << std::endl;
+// 	std::cout << "Size: " << v2.size() << "\nCapacity: " << v2.capacity() << std::endl;
+// 	v2.reserve(100);
+// 	std::cout << "Size: " << v2.size() << "\nCapacity: " << v2.capacity() << std::endl;
+// 	std::cout << v2[1] << std::endl;
+// 	v2.resize(2);
+// 	std::cout << "Size: " << v2.size() << "\nCapacity: " << v2.capacity() << std::endl;
+// 	v2.resize(120);
+// 	std::cout << "Size: " << v2.size() << "\nCapacity: " << v2.capacity() << std::endl;
+// 	std::cout << v2[1] << std::endl;
+// 	std::cout << v2[40] << std::endl;
 
-	std::cout << "Size: " << v2.size() << "\nCapacity: " << v2.capacity() << std::endl;
-	v2.reserve(100);
-	std::cout << "Size: " << v2.size() << "\nCapacity: " << v2.capacity() << std::endl;
-	std::cout << v2[1] << std::endl;
-	v2.resize(2);
-	std::cout << "Size: " << v2.size() << "\nCapacity: " << v2.capacity() << std::endl;
-	v2.resize(120);
-	std::cout << "Size: " << v2.size() << "\nCapacity: " << v2.capacity() << std::endl;
-	std::cout << v2[1] << std::endl;
-	std::cout << v2[40] << std::endl;
+//   return 0;
+// }
+
+// int main ()
+// {
+//   ft::vector<int> myvector;
+//    std::cout << "size: " << myvector.size() << " capacity: " << myvector.capacity() << std::endl;
+
+//   myvector.push_back (100);
+//    std::cout << "size: " << myvector.size() << " capacity: " << myvector.capacity() << std::endl;
+
+//    myvector.push_back (200);
+//    std::cout << "size: " << myvector.size() << " capacity: " << myvector.capacity() << std::endl;
+
+//    myvector.push_back (300);
+//    std::cout << "size: " << myvector.size() << " capacity: " << myvector.capacity() << std::endl;
+
+
+//   myvector.pop_back();
+
+//    ft::vector<int>::iterator ite;
+//    ite = myvector.end();
+//    std::cout << "size: " << myvector.size() << " capacity: " << myvector.capacity() << std::endl;
+//    for (ft::vector<int>::iterator it = myvector.begin(); it != ite; it++)
+//    	std::cout << "Mon vector a comme valeur: " << *it << '\n';
+
+//   return 0;
+// }
+
+// int main ()
+// {
+//   ft::vector<int> myvector;
+//   myvector.push_back (100);
+//   myvector.push_back (200);
+//   myvector.push_back (300);
+
+//   std::cout << "myvector contains:";
+//   for (unsigned i=0; i<myvector.size(); i++)
+//     std::cout << ' ' << myvector[i];
+//   std::cout << '\n';
+//   std::cout << myvector.size() << "\n";
+
+//   myvector.clear();
+//   std::cout << myvector.size() << "\n";
+//   myvector.push_back (1101);
+//   myvector.push_back (2202);
+
+//   std::cout << "myvector contains:";
+//   for (unsigned i=0; i<myvector.size(); i++)
+//     std::cout << ' ' << myvector[i];
+//   std::cout << '\n';
+//   std::cout << myvector.size() << "\n";
+
+
+//   return 0;
+// }
+
+// int main ()
+// {
+//   std::vector<int> foo (3,100);   // three ints with a value of 100
+//   std::vector<int> bar (2,200);   // two ints with a value of 200
+
+//   if (foo==bar) std::cout << "foo and bar are equal\n";
+//   if (foo!=bar) std::cout << "foo and bar are not equal\n";
+//   if (foo< bar) std::cout << "foo is less than bar\n";
+//   if (foo> bar) std::cout << "foo is greater than bar\n";
+//   if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
+//   if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
+
+//   return 0;
+// }
+
+
+
+// 	template <class T, class Alloc>
+// 	bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+// 		if (lhs.size() != rhs.size())
+// 			return (false);
+// 		return (equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+// 	}
+
+// 	template <class T, class Alloc>
+// 	bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+// 		return (!(lhs == rhs));
+// 	}
+
+// 	template <class T, class Alloc>
+// 	bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+// 		return (lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+// 	}
+
+// 	template <class T, class Alloc>
+// 	bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+// 		return (!(rhs < lhs));
+// 	}
+
+// 	template <class T, class Alloc>
+// 	bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+// 		return (rhs < lhs);
+// 	}
+
+// 	template <class T, class Alloc>
+//     bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+// 		return (!(lhs < rhs));
+// 	}
+// }
+
+// #endif
+
+int main ()
+{
+  ft::vector<int> foo (3,100);   // three ints with a value of 100
+  ft::vector<int> bar (5,200);   // five ints with a value of 200
+
+
+  foo.push_back(45);
+  foo.push_back(46);
+  bar.push_back(55);
+  bar.push_back(56);
+
+  std::cout << "foo contains:";
+  for (unsigned i=0; i<foo.size(); i++)
+    std::cout << ' ' << foo[i];
+  std::cout << '\n';
+
+  std::cout << "bar contains:";
+  for (unsigned i=0; i<bar.size(); i++)
+    std::cout << ' ' << bar[i];
+  std::cout << '\n';
+std::cout << foo.capacity() << " " << foo.size() << " bar: " << bar.capacity() << " " << bar.size() << "\n";
+
+  foo.swap(bar);
+
+  std::cout << "foo contains:";
+  for (unsigned i=0; i<foo.size(); i++)
+    std::cout << ' ' << foo[i];
+  std::cout << '\n';
+
+  std::cout << "bar contains:";
+  for (unsigned i=0; i<bar.size(); i++)
+    std::cout << ' ' << bar[i];
+  std::cout << '\n';
+std::cout << foo.capacity() << " " << foo.size() << " bar: " << bar.capacity() << " " << bar.size() << "\n";
+
 
   return 0;
 }
