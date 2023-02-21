@@ -1,6 +1,3 @@
-
-
-
 // int main()
 // {
 // 	pair<int, int> p;
@@ -68,23 +65,50 @@
 
 //   // using predicate comparison:
 //   if ( ft::equal (myvector.begin(), myvector.end(), myints, mypredicate) )
-//     std::cout << "The contents of both sequences are equal.\n";
+//     std::cout << "The contents of both sequSences are equal.\n";
 //   else
 //     std::cout << "The contents of both sequences differ.\n";
 
 //   return 0;
 // }
 
-
-// int main() {
-//   std::cout << std::boolalpha;
-//   std::cout << "is_integral:" << std::endl;
-//   std::cout << "char: " << is_integral<char>::value << std::endl;
-//   std::cout << "int: " << is_integral<int>::value << std::endl;
-//   std::cout << "float: " << is_integral<float>::value << std::endl;
-//   return 0;
-// }
-
+#include <iostream>
 #include <vector>
+#include "vector.hpp"
 
-using namespace ft;
+//using namespace ft;
+
+int main() {
+	std::vector<int> v1;
+	int tab[] = {1, 2, 3, 3, 3};
+	ft::vector<int> v2(tab, tab + 5);
+
+	v1.push_back(1);
+	v1.push_back(2);
+	v1.push_back(3);
+	v1.push_back(3);
+	v1.push_back(3);
+	std::cout << "Size: " << v1.size() << "\nCapacity: " << v1.capacity() << std::endl;
+	v1.reserve(100);
+	std::cout << "Size: " << v1.size() << "\nCapacity: " << v1.capacity() << std::endl;
+	std::cout << v1[1] << std::endl;
+	v1.resize(2);
+	std::cout << "Size: " << v1.size() << "\nCapacity: " << v1.capacity() << std::endl;
+	v1.resize(120);
+	std::cout << "Size: " << v1.size() << "\nCapacity: " << v1.capacity() << std::endl;
+	std::cout << v1[1] << std::endl;
+	std::cout << v1[40] << std::endl;
+
+	std::cout << "Size: " << v2.size() << "\nCapacity: " << v2.capacity() << std::endl;
+	v2.reserve(100);
+	std::cout << "Size: " << v2.size() << "\nCapacity: " << v2.capacity() << std::endl;
+	std::cout << v2[1] << std::endl;
+	v2.resize(2);
+	std::cout << "Size: " << v2.size() << "\nCapacity: " << v2.capacity() << std::endl;
+	v2.resize(120);
+	std::cout << "Size: " << v2.size() << "\nCapacity: " << v2.capacity() << std::endl;
+	std::cout << v2[1] << std::endl;
+	std::cout << v2[40] << std::endl;
+
+  return 0;
+}

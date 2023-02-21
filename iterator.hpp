@@ -6,21 +6,23 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 12:04:30 by jrossett          #+#    #+#             */
-/*   Updated: 2023/02/17 15:17:29 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/02/21 14:26:02 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ITERATOR_HPP
 # define ITERATOR_HPP
 
+# include <iterator>
+
 namespace ft
 {
 
-	struct input_iterator_tag {};
-	struct output_iterator_tag {};
-	struct forward_iterator_tag {};
-	struct bidirectional_iterator_tag {};
-	struct random_access_iterator_tag {};
+	// struct input_iterator_tag {};
+	// struct output_iterator_tag {};
+	// struct forward_iterator_tag {};
+	// struct bidirectional_iterator_tag {};
+	// struct random_access_iterator_tag {};
 
 	template <class Iterator> 
 	class iterator_traits
@@ -52,7 +54,7 @@ namespace ft
 			typedef T								value_type;
 			typedef const T*						pointer;
 			typedef const T&						reference;
-			typedef random_access_iterator_tag		iterator_category;
+			typedef std::random_access_iterator_tag		iterator_category;
 	};
 
 	template <class Iterator>
@@ -80,7 +82,7 @@ namespace ft
 
 			reference operator*() const {
 				iterator_type tmp = it;
-				return (*--tmp);
+				return (*(--tmp));
 			}
 
 			reverse_iterator operator+(difference_type n) const {
@@ -126,7 +128,7 @@ namespace ft
 			}
 
 			reference operator[] (difference_type n) const {
-				return *(*this + n);
+				return (base()[- n - 1]);
 			}
 
 			pointer operator->() const {
