@@ -276,15 +276,18 @@ namespace ft
 					while (it != pos) {
 						*(it + 1) = *it;
 						it--;
-						_size++
+						_size++;
 					}
 				}
-				if (begin() == pos)
-					it = begin();
-				else
-					it = pos - 1;
-				for (size_type i = 0; i < tmp; i++) {
-					i = 
+				it = begin();
+				size_type val2 = 0;
+				while (it != pos - 1)
+					val2++;
+				it = pos - 1;
+				size_type val = tmp + val2;
+				while (val2 < val) {
+					_alloc.construct(_vector + val2, *(first++));
+					val2++;
 				}
 			}
 

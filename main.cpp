@@ -219,35 +219,35 @@
 
 int main ()
 {
-  std::vector<int> myvector (3,100);
-  std::vector<int>::iterator it;
+  ft::vector<int> myvector (3,100);
+  ft::vector<int>::iterator it;
 
-	std::cout << myvector.capacity() << std::endl;
-  it = myvector.begin();
-   myvector.insert ( it , 200 );
-   std::cout << myvector.capacity() << std::endl;
-  it = myvector.begin();
-   myvector.insert ( it , 200 );
-   std::cout << myvector.capacity() << std::endl;
-  it = myvector.begin();
-   myvector.insert ( it , 200 );
-   std::cout << myvector.capacity() << std::endl;
-  it = myvector.begin();
-   myvector.insert ( it , 200 );
-   std::cout << myvector.capacity() << std::endl;
-  it = myvector.begin();
-   myvector.insert ( it , 200 );
-   std::cout << myvector.capacity() << std::endl;
-  myvector.insert (it,16,300);
+	// std::cout << myvector.capacity() << std::endl;
+  // it = myvector.begin();
+  //  myvector.insert ( it , 200 );
+  //  std::cout << myvector.capacity() << std::endl;
+  // it = myvector.begin();
+  //  myvector.insert ( it , 200 );
+  //  std::cout << myvector.capacity() << std::endl;
+  // it = myvector.begin();
+  //  myvector.insert ( it , 200 );
+  //  std::cout << myvector.capacity() << std::endl;
+  // it = myvector.begin();
+  //  myvector.insert ( it , 200 );
+  //  std::cout << myvector.capacity() << std::endl;
+  // it = myvector.begin();
+  //  myvector.insert ( it , 200 );
+  //  std::cout << myvector.capacity() << std::endl;
+  // myvector.insert (it,16,300);
 
- std::cout << myvector.capacity() << std::endl;
-  // "it" no longer valid, get a new one:
-  it = myvector.begin();
+//  std::cout << myvector.capacity() << std::endl;
+//   // "it" no longer valid, get a new one:
+//   it = myvector.begin();
 
-  std::vector<int> anothervector (2,400);
-  myvector.insert (it+2,anothervector.begin(),anothervector.end());
+//   std::vector<int> anothervector (2,400);
+//   myvector.insert (it+2,anothervector.begin(),anothervector.end());
 
-	std::cout << myvector.capacity() << std::endl;
+// 	std::cout << myvector.capacity() << std::endl;
 
   
   int myarray [] = { 501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503, 501,502,503,501,502,503, 501,502,503, 501,502,503,501,502,503, 501,502,503, };
