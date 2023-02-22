@@ -6,7 +6,7 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 10:47:02 by jrossett          #+#    #+#             */
-/*   Updated: 2023/02/21 16:28:27 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/02/22 16:00:57 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,8 @@ namespace ft
 			}
 
 			void pop_back () {
-				_alloc.destroy(_vector + _size);
+				std::cout << "OUI\n";
+				_alloc.destroy(_vector + _size - 1);
 				_size--;
 			}
 
@@ -208,11 +209,11 @@ namespace ft
 			}
 
 			reference back() {
-				return (_vector + _size);
+				return (_vector + _size - 1);
 			}
 
 			const_reference back() const {
-				return (_vector + _size);
+				return (_vector + _size - 1);
 			}
 
 			allocator_type get_allocator() const {
@@ -230,9 +231,98 @@ namespace ft
 				x._capacity = _capacity;
 				_capacity = tmp;
 
+				tmp = x._size;
+				x._size = _size;
+				_size = tmp;
+
 				pointer tmp2 = x._vector;
 				x._vector = _vector;
 				_vector = tmp2;
+			}
+
+
+			template <class InputIterator>
+  			void assign (InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true) {
+				this->clear();
+				size_type tmp = std::distance(first, last);
+				if (_capacity < tmp) {
+					reserve(tmp);
+				}
+				_size = tmp;
+				for (size_type i = 0; first != last; i++)
+					_alloc.construct(_vector + i, *(first++));
+			}
+
+
+			void assign (size_type n, const value_type& val) {
+				this->clear();
+				if (n > _capacity)
+					reserve(n);
+				_size = n;
+				for (size_type i = 0; i < _size; i++)
+					_alloc.construct(_vector + i, val);
+			}
+
+			template <class InputIterator>
+			void insert (iterator pos, InputIterator first, InputIterator last) {
+				size_type n = std::distance(first, last);
+				size_type tmp = n;
+				if (_size + n > _capacity)
+					reserve(_size + n);
+				iterator it = _vector + _size - 1;
+				while (n--)
+				{
+					it = _vector + _size - 1;
+					while (it != pos) {
+						*(it + 1) = *it;
+						it--;
+						_size++
+					}
+				}
+				if (begin() == pos)
+					it = begin();
+				else
+					it = pos - 1;
+				for (size_type i = 0; i < tmp; i++) {
+					i = 
+				}
+			}
+
+			// iterator insert (iterator position, const value_type& val) {
+
+			// }
+
+			// void insert (iterator position, size_type n, const value_type& val) {
+				
+			// }
+
+
+			iterator erase (iterator pos) {
+				_alloc.destroy(pos);
+				iterator it = pos;
+				while (it != _vector + _size - 1) {
+					*it = *(it + 1);
+					it++;
+				}
+				_size--;
+				return (pos);
+			}
+			
+			iterator erase (iterator first, iterator last) {
+				size_type n = std::distance(first, last);
+				iterator it = first;
+				for (size_type i = 0; i < n; i++) {
+					_alloc.destroy(it++);
+				}
+				_size -= n;
+				if (_size == 0)
+					return (last - n);
+				it = first;
+				while (it != _vector + _size - 1) {
+					*it = *(it + n);
+					it++;
+				}
+				return (last - n);
 			}
 
 		private:
@@ -279,9 +369,10 @@ namespace ft
 		return (!(lhs < rhs));
 	}
 
-	// template <class T, class Alloc>
-	// void swap (vector<T,Alloc>& x, vector<T,Alloc>& y) {
-	// }
+	template <class T, class Alloc>
+	void swap (vector<T,Alloc>& x, vector<T,Alloc>& y) {
+		x.swap(y);
+	}
 }
 
 #endif

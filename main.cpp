@@ -72,10 +72,6 @@
 //   return 0;
 // }
 
-#include <iostream>
-#include <vector>
-#include "vector.hpp"
-
 // using namespace ft;
 
 // int main() {
@@ -215,41 +211,54 @@
 
 // #endif
 
+
+#include <iostream>
+#include <vector>
+#include "vector.hpp"
+#include "surcharge.hpp"
+
 int main ()
 {
-  ft::vector<int> foo (3,100);   // three ints with a value of 100
-  ft::vector<int> bar (5,200);   // five ints with a value of 200
+  std::vector<int> myvector (3,100);
+  std::vector<int>::iterator it;
 
+	std::cout << myvector.capacity() << std::endl;
+  it = myvector.begin();
+   myvector.insert ( it , 200 );
+   std::cout << myvector.capacity() << std::endl;
+  it = myvector.begin();
+   myvector.insert ( it , 200 );
+   std::cout << myvector.capacity() << std::endl;
+  it = myvector.begin();
+   myvector.insert ( it , 200 );
+   std::cout << myvector.capacity() << std::endl;
+  it = myvector.begin();
+   myvector.insert ( it , 200 );
+   std::cout << myvector.capacity() << std::endl;
+  it = myvector.begin();
+   myvector.insert ( it , 200 );
+   std::cout << myvector.capacity() << std::endl;
+  myvector.insert (it,16,300);
 
-  foo.push_back(45);
-  foo.push_back(46);
-  bar.push_back(55);
-  bar.push_back(56);
+ std::cout << myvector.capacity() << std::endl;
+  // "it" no longer valid, get a new one:
+  it = myvector.begin();
 
-  std::cout << "foo contains:";
-  for (unsigned i=0; i<foo.size(); i++)
-    std::cout << ' ' << foo[i];
+  std::vector<int> anothervector (2,400);
+  myvector.insert (it+2,anothervector.begin(),anothervector.end());
+
+	std::cout << myvector.capacity() << std::endl;
+
+  
+  int myarray [] = { 501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503,501,502,503, 501,502,503, 501,502,503,501,502,503, 501,502,503, 501,502,503,501,502,503, 501,502,503, };
+  std::cout << myvector.size() << " et la capa" << myvector.capacity();
+  myvector.insert (myvector.begin(), myarray, myarray+55);
+
+	std::cout << myvector.capacity() << std::endl;
+  std::cout << "myvector contains:";
+  for (it=myvector.begin(); it<myvector.end(); it++)
+    std::cout << ' ' << *it;
   std::cout << '\n';
-
-  std::cout << "bar contains:";
-  for (unsigned i=0; i<bar.size(); i++)
-    std::cout << ' ' << bar[i];
-  std::cout << '\n';
-std::cout << foo.capacity() << " " << foo.size() << " bar: " << bar.capacity() << " " << bar.size() << "\n";
-
-  foo.swap(bar);
-
-  std::cout << "foo contains:";
-  for (unsigned i=0; i<foo.size(); i++)
-    std::cout << ' ' << foo[i];
-  std::cout << '\n';
-
-  std::cout << "bar contains:";
-  for (unsigned i=0; i<bar.size(); i++)
-    std::cout << ' ' << bar[i];
-  std::cout << '\n';
-std::cout << foo.capacity() << " " << foo.size() << " bar: " << bar.capacity() << " " << bar.size() << "\n";
-
 
   return 0;
 }
