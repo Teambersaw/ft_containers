@@ -6,7 +6,7 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 10:47:02 by jrossett          #+#    #+#             */
-/*   Updated: 2023/02/22 16:00:57 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:01:41 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,11 @@ namespace ft
 			}
 
 			reverse_iterator rbegin() {
-				return (end());
+				return (_vector + _size);
 			}
 
 			const_reverse_iterator rbegin() const {
-				return (end());
+				return (_vector + _size);
 			}
 
 			iterator end() {
@@ -108,11 +108,11 @@ namespace ft
 			}
 
 			reverse_iterator rend() {
-				return (begin());
+				return (_vector);
 			}
 
 			const_reverse_iterator rend() const {
-				return (begin());
+				return (_vector);
 			}
 
 			size_type size() const {
@@ -131,6 +131,7 @@ namespace ft
 				return (_size == 0);
 			}
 
+
 			void reserve (size_type n) {
 				if (n > max_size())
 					throw(std::length_error("reserve: lenght error."));
@@ -145,6 +146,28 @@ namespace ft
 					_capacity = n;
 				}
 			}
+			// void reserve (size_type n) {
+			// 	if (n < _capacity)
+			// 		return ;
+			// 	if (n > max_size())
+			// 		throw(std::length_error("reserve: lenght error."));
+			// 	size_type tmp = _capacity;
+			// 	pointer vect;
+			// 	if (n > _capacity * 2) {
+			// 		vect = _alloc.allocate(n);
+			// 		_capacity = n;
+			// 	}
+			// 	else if (n > _capacity) {
+			// 		vect = _alloc.allocate(_capacity * 2);
+			// 		_capacity = _capacity * 2;
+			// 	}
+			// 	for (size_type i = 0; i < _size; i++) {
+			// 		_alloc.construct(vect + i, _vector[i]);
+			// 		_alloc.destroy(_vector + i);
+			// 	}
+			// 	_alloc.deallocate(_vector, tmp);
+			// 	_vector = vect;
+			// }
 
 			void resize (size_type n, value_type val = value_type()) {
 				if (n < _size) {
@@ -183,7 +206,6 @@ namespace ft
 			}
 
 			void pop_back () {
-				std::cout << "OUI\n";
 				_alloc.destroy(_vector + _size - 1);
 				_size--;
 			}
@@ -201,19 +223,19 @@ namespace ft
 			}
 			
 			reference front() {
-				return (_vector);
+				return (*_vector);
 			}
 
 			const_reference front() const {
-				return (_vector);
+				return (*_vector);
 			}
 
 			reference back() {
-				return (_vector + _size - 1);
+				return (*(_vector + _size - 1));
 			}
 
 			const_reference back() const {
-				return (_vector + _size - 1);
+				return (*(_vector + _size - 1));
 			}
 
 			allocator_type get_allocator() const {
@@ -265,30 +287,22 @@ namespace ft
 
 			template <class InputIterator>
 			void insert (iterator pos, InputIterator first, InputIterator last) {
-				size_type n = std::distance(first, last);
-				size_type tmp = n;
-				if (_size + n > _capacity)
-					reserve(_size + n);
-				iterator it = _vector + _size - 1;
-				while (n--)
-				{
-					it = _vector + _size - 1;
-					while (it != pos) {
-						*(it + 1) = *it;
-						it--;
-						_size++;
-					}
+				size_type nb_elem = std::distance(first, last);
+				size_type nb_begin = std::distance(begin(), pos);
+				size_type dist = std::distance(pos, end());
+
+				if (nb_elem + _size > _capacity * 2)
+					reserve(nb_elem + _size);
+				else if (nb_elem + _size > _capacity)
+					reserve(_capacity * 2);
+				for (size_type i = 0; i < dist; i++) {
+					_alloc.construct(_vector + nb_elem + _size - i - 1, _vector[_size - i - 1]);
+					_alloc.destroy(_vector + (nb_begin + i - 1));
 				}
-				it = begin();
-				size_type val2 = 0;
-				while (it != pos - 1)
-					val2++;
-				it = pos - 1;
-				size_type val = tmp + val2;
-				while (val2 < val) {
-					_alloc.construct(_vector + val2, *(first++));
-					val2++;
+				for (size_type i = 0; i < nb_elem; i++) {
+					_alloc.construct(_vector + (nb_begin + i), *(first++));
 				}
+				_size += nb_elem;
 			}
 
 			// iterator insert (iterator position, const value_type& val) {
@@ -298,8 +312,6 @@ namespace ft
 			// void insert (iterator position, size_type n, const value_type& val) {
 				
 			// }
-
-
 			iterator erase (iterator pos) {
 				_alloc.destroy(pos);
 				iterator it = pos;
