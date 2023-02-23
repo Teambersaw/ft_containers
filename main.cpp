@@ -217,66 +217,61 @@
 #include "vector.hpp"
 #include "surcharge.hpp"
 
-// template<class T>
-// std::ostream &operator<<(std::ostream &stream, std::vector<T> const &v)
-// {
-// 	typename std::vector<T>::const_iterator it;
+template<class T>
+std::ostream &operator<<(std::ostream &stream, std::vector<T> const &v)
+{
+	typename std::vector<T>::const_iterator it;
 
-// 	stream << "[";
-// 	for (it = v.begin(); it != v.end(); it++)
-// 		stream << *it << (it + 1 == v.end() ? "" : ", ");
-// 	stream << "]";
-// 	return (stream);
-// }
+	stream << "[";
+	for (it = v.begin(); it != v.end(); it++)
+		stream << *it << (it + 1 == v.end() ? "" : ", ");
+	stream << "]";
+	return (stream);
+}
 
-// int main ()
-// {
-//   ft::vector<int> myvector;
-//   myvector.push_back(21);
-//   myvector.push_back(22);
-//   myvector.push_back(23);
-//   myvector.push_back(24);
-//   myvector.push_back(25);
-//   //ft::vector<int>::iterator it;
+int main ()
+{
+  ft::vector<int> myvector(5, 100);
 
-// 	// std::cout << myvector.capacity() << std::endl;
-//   // it = myvector.begin();
-//   //  myvector.insert ( it , 200 );
-//   //  std::cout << myvector.capacity() << std::endl;
-//   // it = myvector.begin();
-//   //  myvector.insert ( it , 200 );
-//   //  std::cout << myvector.capacity() << std::endl;
-//   // it = myvector.begin();
-//   //  myvector.insert ( it , 200 );
-//   //  std::cout << myvector.capacity() << std::endl;
-//   // it = myvector.begin();
-//   //  myvector.insert ( it , 200 );
-//   //  std::cout << myvector.capacity() << std::endl;
-//   // it = myvector.begin();
-//   //  myvector.insert ( it , 200 );
-//   //  std::cout << myvector.capacity() << std::endl;
-//   // myvector.insert (it,16,300);
 
-// //  std::cout << myvector.capacity() << std::endl;
-// //   // "it" no longer valid, get a new one:
-// //   it = myvector.begin();
+	// std::cout << myvector.capacity() << std::endl;
+  // it = myvector.begin();
+  //  myvector.insert ( it , 200 );
+  //  std::cout << myvector.capacity() << std::endl;
+  // it = myvector.begin();
+  //  myvector.insert ( it , 200 );
+  //  std::cout << myvector.capacity() << std::endl;
+  // it = myvector.begin();
+  //  myvector.insert ( it , 200 );
+  //  std::cout << myvector.capacity() << std::endl;
+  // it = myvector.begin();
+  //  myvector.insert ( it , 200 );
+  //  std::cout << myvector.capacity() << std::endl;
+  // it = myvector.begin();
+  //  myvector.insert ( it , 200 );
+  //  std::cout << myvector.capacity() << std::endl;
+  // myvector.insert (it,16,300);
 
-// //   std::vector<int> anothervector (2,400);
-// //   myvector.insert (it+2,anothervector.begin(),anothervector.end());
+//  std::cout << myvector.capacity() << std::endl;
+//   // "it" no longer valid, get a new one:
+//   it = myvector.begin();
 
-// // 	std::cout << myvector.capacity() << std::endl;
+//   std::vector<int> anothervector (2,400);
+//   myvector.insert (it+2,anothervector.begin(),anothervector.end());
+
+// 	std::cout << myvector.capacity() << std::endl;
 
   
-//   int myarray [] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ,16 ,17 ,18 ,19 ,20};
-//   std::cout << myvector << std::endl;
-//   std::cout << "Size: " << myvector.size() << "\nCapacity: " << myvector.capacity() << std::endl;
-// //   myvector.insert (myvector.begin(), myarray, myarray + 15);
+  int myarray [] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ,16 ,17 ,18 ,19 ,20};
+  std::cout << myvector << std::endl;
+  std::cout << "Size: " << myvector.size() << "\nCapacity: " << myvector.capacity() << std::endl;
+  myvector.insert (myvector.begin(), myarray + 3, myarray + 5);
 //   myvector.insert (myvector.begin(), myvector.begin(), myvector.end());
-//   myvector.insert (myvector.begin(), myvector.begin(), myvector.end());
-//   std::cout << "Size: " << myvector.size() << "\nCapacity: " << myvector.capacity() << std::endl;
-//   std::cout << myvector << std::endl;
-//   return 0;
-// }
+//      myvector.insert (myvector.begin(), myvector.begin(), myvector.end());
+  std::cout << "Size: " << myvector.size() << "\nCapacity: " << myvector.capacity() << std::endl;
+  std::cout << myvector << std::endl;
+  return 0;
+}
 
 
 
@@ -290,38 +285,59 @@
 // 			// 	_size += nb_elem;
 // 			// }
 
-int		main(void)
-{
-// 	ft::vector<int> vct(7)
+// int		main(void)
+// {
+// // 	ft::vector<int> vct(7)
 
-// 	for (unsigned long int i = 0; i < vct.size(); ++i)
-// 	{
-// 		vct.at(i) = (vct.size() - i) * 3;
-// 		std::cout << "vct[]: " << vct[i] << std::endl;
-// 	}
-// 	std::cout << vct.size() << '\n';
+// // 	for (unsigned long int i = 0; i < vct.size(); ++i)
+// // 	{
+// // 		vct.at(i) = (vct.size() - i) * 3;
+// // 		std::cout << "vct[]: " << vct[i] << std::endl;
+// // 	}
+// // 	std::cout << vct.size() << '\n';
 
-// 	ft::vector<int> const vct_c(vct);
+// // 	ft::vector<int> const vct_c(vct);
 
-// 	std::cout << "front(): " << vct.front() << " " << vct_c.front() << std::endl;
-// 	std::cout << "back(): " << vct.back() << " " <<  vct_c.back() << std::endl;
+// // 	std::cout << "front(): " << vct.front() << " " << vct_c.front() << std::endl;
+// // 	std::cout << "back(): " << vct.back() << " " <<  vct_c.back() << std::endl;
 
-// 	for (unsigned long int i = 0; i < vct_c.size(); ++i)
-// 		std::cout << "vct_c.at(): " << vct_c.at(i) << std::endl;
-// 	try {
-// 		std::cout << vct_c.at(10) << std::endl;
-// 	}
-// 	catch (std::out_of_range &e) {
-// 		std::cout << "Catch out_of_range exception!" << std::endl;
-// 	}
-// 	catch (std::exception &e) {
-// 		std::cout << "Catch exception: " << e.what() << std::endl;
-// 	}
-// std::cout << vct.size() << '\n';
-	ft::vector<int> vec1(5, 100);
-	ft::vector<int> JULLLLLLLLLLLLLLLLLLLLLLLLLLLLL(vec1);
-	JULLLLLLLLLLLLLLLLLLLLLLLLLLLLL[1] = 42;
-	std::cout << vec1 << '\n';
-	std::cout << JULLLLLLLLLLLLLLLLLLLLLLLLLLLLL << '\n';
-	return (0);
-}
+// // 	for (unsigned long int i = 0; i < vct_c.size(); ++i)
+// // 		std::cout << "vct_c.at(): " << vct_c.at(i) << std::endl;
+// // 	try {
+// // 		std::cout << vct_c.at(10) << std::endl;
+// // 	}
+// // 	catch (std::out_of_range &e) {
+// // 		std::cout << "Catch out_of_range exception!" << std::endl;
+// // 	}
+// // 	catch (std::exception &e) {
+// // 		std::cout << "Catch exception: " << e.what() << std::endl;
+// // 	}
+// // std::cout << vct.size() << '\n';
+// }
+
+// int main ()
+// {
+//   ft::vector<int> myvector (3,100);
+//   ft::vector<int>::iterator it;
+
+//   it = myvector.begin();
+//   it = myvector.insert ( it , 200 );
+
+//   myvector.insert (it,2,300);
+
+//   // "it" no longer valid, get a new one:
+//   it = myvector.begin();
+
+//   ft::vector<int> anothervector (2,400);
+//   myvector.insert (it+2,anothervector.begin(),anothervector.end());
+
+//   int myarray [] = { 501,502,503 };
+//   myvector.insert (myvector.begin(), myarray, myarray+3);
+
+//   std::cout << "myvector contains:";
+//   for (it=myvector.begin(); it<myvector.end(); it++)
+//     std::cout << ' ' << *it;
+//   std::cout << '\n';
+
+//   return 0;
+// }

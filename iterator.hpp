@@ -71,7 +71,9 @@ namespace ft
 			typedef typename iterator_traits<Iterator>::iterator_category	iterator_category;
 
 			reverse_iterator() : it() {}
+
 			explicit reverse_iterator (iterator_type it) : it(it) {}
+
 			template <class Iter>
 			reverse_iterator (const reverse_iterator<Iter>& rev_it) {
 				it = rev_it.base();
