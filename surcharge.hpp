@@ -6,7 +6,7 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:40:22 by jrossett          #+#    #+#             */
-/*   Updated: 2023/02/23 14:47:08 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/02/24 10:27:22 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ std::ostream &operator<<(std::ostream &stream, ft::vector<T> const &v)
 	stream << "[";
 	for (it = v.begin(); it != v.end(); it++)
 		stream << *it << (it + 1 == v.end() ? "" : ", ");
-	stream << "]";
+	stream << "]\n";
+	stream << "size of Vct: " << v.size() << "\nCapacity of vct: " << v.capacity() << std::endl;
 	return (stream);
 }
 

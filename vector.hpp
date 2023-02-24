@@ -6,7 +6,7 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 10:47:02 by jrossett          #+#    #+#             */
-/*   Updated: 2023/02/23 17:01:41 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/02/24 13:46:28 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,11 @@ namespace ft
 			}
 
 			reverse_iterator rbegin() {
-				return (_vector + _size);
+				return ((reverse_iterator) end());
 			}
 
 			const_reverse_iterator rbegin() const {
-				return (_vector + _size);
+				return ((const_reverse_iterator) end());
 			}
 
 			iterator end() {
@@ -111,11 +111,11 @@ namespace ft
 			}
 
 			reverse_iterator rend() {
-				return (_vector);
+				return ((reverse_iterator) begin());
 			}
 
 			const_reverse_iterator rend() const {
-				return (_vector);
+				return ((const_reverse_iterator) begin());
 			}
 
 			size_type size() const {
@@ -294,7 +294,7 @@ namespace ft
 				size_type nb_elem = std::distance(first, last);
 				size_type nb_begin = std::distance(begin(), pos);
 				size_type dist = std::distance(pos, end());
-				size_type reserve;
+				size_type reserve = _capacity;
 				pointer vect;
 
 				if (nb_elem + _size > _capacity)
@@ -339,18 +339,17 @@ namespace ft
 
 			iterator erase (iterator first, iterator last) {
 				size_type n = std::distance(first, last);
+				size_type nb_end = std::distance(last, end());
 				iterator it = first;
 				for (size_type i = 0; i < n; i++) {
-					_alloc.destroy(it++);
-				}
-				_size -= n;
-				if (_size == 0)
-					return (last - n);
-				it = first;
-				while (it != _vector + _size - 1) {
-					*it = *(it + n);
+					_alloc.destroy(it);
 					it++;
 				}
+				for (size_type i = 0; i < nb_end; i++) {
+					_alloc.construct( _vector + (_size - nb_end - n + i), *(_vector + _size - nb_end + i));
+					_alloc.destroy(_vector + _size - nb_end + i);
+				}
+				_size -= n;
 				return (last - n);
 			}
 

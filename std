@@ -1,0 +1,43 @@
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+size of Vct: 11
+Capacity of vct: 16
+
+test 1
+[0, 1, 3, 4, 5, 6, 7, 8, 9, 10]
+size of Vct: 10
+Capacity of vct: 16
+
+test 2
+[1, 3, 4, 5, 6, 7, 8, 9, 10]
+size of Vct: 9
+Capacity of vct: 16
+
+test 3
+[1, 3, 4, 5, 6, 7, 8, 9]
+size of Vct: 8
+Capacity of vct: 16
+
+test 4
+[5, 6, 7, 8, 9]
+size of Vct: 5
+Capacity of vct: 16
+
+test 5
+[5, 6, 9]
+size of Vct: 3
+Capacity of vct: 16
+
+test 6
+[5, 6]
+size of Vct: 2
+Capacity of vct: 16
+
+[5, 6, 21, 22, 23, 24]
+size of Vct: 6
+Capacity of vct: 16
+
+test 7
+[]
+size of Vct: 0
+Capacity of vct: 16
+
