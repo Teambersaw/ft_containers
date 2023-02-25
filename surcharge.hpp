@@ -28,4 +28,17 @@ std::ostream &operator<<(std::ostream &stream, ft::vector<T> const &v)
 	return (stream);
 }
 
+// template<class T>
+// std::ostream &operator<<(std::ostream &stream, ft::stack<T> const &v)
+// {
+// 	typename ft::stack<T>::container_type::iterator it;
+
+// 	stream << "[";
+// 	for (it = v.begin(); it != v.end(); it++)
+// 		stream << *it << (it + 1 == v.end() ? "" : ", ");
+// 	stream << "]\n";
+// 	stream << "size of Vct: " << v.size() << "\nCapacity of vct: " << v.capacity() << std::endl;
+// 	return (stream);
+// }
+
 #endif
