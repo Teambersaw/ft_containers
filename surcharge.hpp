@@ -13,32 +13,19 @@
 #ifndef SURCHARGE_HPP
 # define SURCHARGE_HPP
 
-# include "vector.hpp"
+# include <iostream>
 
-template<class T>
-std::ostream &operator<<(std::ostream &stream, ft::vector<T> const &v)
-{
-	typename ft::vector<T>::const_iterator it;
+	template<class T>
+	std::ostream &operator<<(std::ostream &stream, NS::vector<T> const &v)
+	{
+		typename NS::vector<T>::const_iterator it;
 
-	stream << "[";
-	for (it = v.begin(); it != v.end(); it++)
-		stream << *it << (it + 1 == v.end() ? "" : ", ");
-	stream << "]\n";
-	stream << "size of Vct: " << v.size() << "\nCapacity of vct: " << v.capacity() << std::endl;
-	return (stream);
-}
-
-// template<class T>
-// std::ostream &operator<<(std::ostream &stream, ft::stack<T> const &v)
-// {
-// 	typename ft::stack<T>::container_type::iterator it;
-
-// 	stream << "[";
-// 	for (it = v.begin(); it != v.end(); it++)
-// 		stream << *it << (it + 1 == v.end() ? "" : ", ");
-// 	stream << "]\n";
-// 	stream << "size of Vct: " << v.size() << "\nCapacity of vct: " << v.capacity() << std::endl;
-// 	return (stream);
-// }
+		stream << "[";
+		for (it = v.begin(); it != v.end(); it++)
+			stream << *it << (it + 1 == v.end() ? "" : ", ");
+		stream << "]\n";
+		stream << "size of Vct: " << v.size() << "\nCapacity of vct: " << v.capacity() << std::endl;
+		return (stream);
+	}
 
 #endif

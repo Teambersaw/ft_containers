@@ -14,11 +14,13 @@
 # define VECTOR_HPP
 
 # include <memory>
-# include "iterator.hpp"
-# include <iterator>
-# include "is_integral.hpp"
 # include <stdexcept>
+# include <iterator>
+# include "iterator.hpp"
+# include "is_integral.hpp"
 # include "equal.hpp"
+# include <iostream>
+
 
 namespace ft
 {
@@ -138,7 +140,7 @@ namespace ft
 				if (n <= _capacity)
 					return ;
 				if (n > max_size())
-					throw(std::length_error("reserve: length error."));
+					throw(std::length_error("vector::reserve"));
 				if (n > _capacity) {
 					pointer vect = _alloc.allocate(n);
 					for (size_type i = 0; i < _size; i++) {
@@ -159,7 +161,7 @@ namespace ft
 				}
 				else if (n > _size) {
 					reserve(n);
-					while (_size < _capacity) {
+					while (_size < n) {
 						_alloc.construct(_vector + _size, val);
 						_size++;
 					}
@@ -177,7 +179,7 @@ namespace ft
 			void push_back (const value_type& val) {
 				if (_size == _capacity) {
 					if (_capacity == 0)
-						reserve (1);
+						reserve(1);
 					else
 						reserve(_capacity * 2);
 					_alloc.construct(_vector + _size, val);
@@ -185,6 +187,7 @@ namespace ft
 				else
 					_alloc.construct(_vector + _size, val);
 				_size++;
+				std::cout << "issou" << std::endl;
 			}
 
 			void pop_back () {
@@ -265,20 +268,41 @@ namespace ft
 					_alloc.construct(_vector + i, val);
 			}
 
-			void insert (iterator pos, size_type n, const value_type& val) {
+			void insert (iterator pos, size_type n, const value_type& val)
+			{
 				size_type nb_begin = std::distance(begin(), pos);
 				size_type dist = std::distance(pos, end());
+				size_type old_capacity = _capacity;
 
-				if (n + _size > _capacity * 2)
-					reserve(n + _size);
-				else if (n + _size > _capacity)
-					reserve(_capacity * 2);
-				for (size_type i = 0; i < dist; i++) {
-					_alloc.construct(_vector + n + _size - i - 1, _vector[_size - i - 1]);
-					_alloc.destroy(_vector + (nb_begin + i - 1));
+				if (!n)
+					return ;
+				if (_capacity < _size + n)
+				{
+					if (_size + n > _capacity * 2)
+						_capacity = _size + n;
+					else if (n + _size > _capacity)
+						_capacity = _capacity * 2;
+					pointer tmp = _alloc.allocate(_capacity);
+					for (size_type i = 0; i < nb_begin; i++)
+						_alloc.construct(tmp + i, _vector[i]);
+					for (size_type i = nb_begin; i < n + nb_begin; i++)
+						_alloc.construct(tmp + i, val);
+					for (size_type i = nb_begin + n; i < _size + n; i++)
+						_alloc.construct(tmp + i, _vector[nb_begin++]);
+					for (size_type i = 0; i < _size; i++)
+						_alloc.destroy(_vector + i);
+					_alloc.deallocate(_vector, old_capacity);
+					_vector = tmp;
 				}
-				for (size_type i = 0; i < n; i++) {
-					_alloc.construct(_vector + (nb_begin + i), val);
+				else
+				{
+					for (size_type i = 0; i < dist; i++)
+					{
+						_alloc.construct(_vector + n + _size - i - 1, _vector[_size - i - 1]);
+						_alloc.destroy(_vector + (nb_begin + i - 1));
+					}
+					for (size_type i = 0; i < n; i++)
+						_alloc.construct(_vector + (nb_begin + i), val);
 				}
 				_size += n;
 			}
@@ -290,48 +314,53 @@ namespace ft
 			}
 
 			template <class InputIterator>
-			void insert (iterator pos, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true) {
-				size_type nb_elem = std::distance(first, last);
+			void insert (iterator pos, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true)
+			{
+				size_type n = std::distance(first, last);
 				size_type nb_begin = std::distance(begin(), pos);
 				size_type dist = std::distance(pos, end());
-				size_type reserve = _capacity;
-				pointer vect;
+				size_type old_capacity = _capacity;
 
-				if (nb_elem + _size > _capacity)
+				if (!n)
+					return ;
+				if (_capacity < _size + n)
 				{
-					if (nb_elem + _size > _capacity * 2)
-						reserve = nb_elem + _size;
-					else if (nb_elem + _size > _capacity)
-						reserve = (_capacity * 2);
-					if (reserve > max_size())
-						throw(std::length_error("reserve: length error."));
-					vect = _alloc.allocate(reserve);
+					if (_size + n > _capacity * 2)
+						_capacity = _size + n;
+					else if (n + _size > _capacity)
+						_capacity = _capacity * 2;
+					pointer tmp = _alloc.allocate(_capacity);
+					for (size_type i = 0; i < nb_begin; i++)
+						_alloc.construct(tmp + i, _vector[i]);
+					for (size_type i = nb_begin; i < n + nb_begin; i++)
+						_alloc.construct(tmp + i, *(first++));
+					for (size_type i = nb_begin + n; i < _size + n; i++)
+						_alloc.construct(tmp + i, _vector[nb_begin++]);
 					for (size_type i = 0; i < _size; i++)
-						_alloc.construct(vect + i, _vector[i]);
+						_alloc.destroy(_vector + i);
+					_alloc.deallocate(_vector, old_capacity);
+					_vector = tmp;
 				}
 				else
-					vect = _vector;
-				for (size_type i = 0; i < dist; i++) {
-					_alloc.construct(vect + nb_elem + _size - i - 1, vect[_size - i - 1]);
-					_alloc.destroy(vect + (nb_begin + i - 1));
+				{
+					for (size_type i = 0; i < dist; i++)
+					{
+						_alloc.construct(_vector + n + _size - i - 1, _vector[_size - i - 1]);
+						_alloc.destroy(_vector + (nb_begin + i - 1));
+					}
+					for (size_type i = 0; i < n; i++)
+						_alloc.construct(_vector + (nb_begin + i), *(first++));
 				}
-				for (size_type i = 0; i < nb_elem; i++) {
-					_alloc.construct(vect + (nb_begin + i), *(first++));
-				}
-				for (size_type i = 0; i < _size; i++)
-					_alloc.destroy(_vector + i);
-				_alloc.deallocate(_vector, _capacity);
-				_size += nb_elem;
-				_vector = vect;
-				_capacity = reserve;
+				_size += n;
 			}
 
 			iterator erase (iterator pos) {
+				size_type n = std::distance(begin(), pos);
 				_alloc.destroy(pos);
-				iterator it = pos;
-				while (it != _vector + _size - 1) {
-					*it = *(it + 1);
-					it++;
+				for (size_type i = n; i < _size - 1; i++)
+				{
+					_alloc.construct(_vector + i, *(_vector + i + 1));
+					 _alloc.destroy(_vector + i + 1);
 				}
 				_size--;
 				return (pos);
@@ -341,6 +370,8 @@ namespace ft
 				size_type n = std::distance(first, last);
 				size_type nb_end = std::distance(last, end());
 				iterator it = first;
+				if (first == last)
+					return (last);
 				for (size_type i = 0; i < n; i++) {
 					_alloc.destroy(it);
 					it++;
@@ -350,7 +381,7 @@ namespace ft
 					_alloc.destroy(_vector + _size - nb_end + i);
 				}
 				_size -= n;
-				return (last - n);
+				return (first);
 			}
 
 		private:

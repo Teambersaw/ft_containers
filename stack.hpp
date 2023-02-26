@@ -5,7 +5,7 @@
 
 namespace ft
 {
-	template <class T, class Container = vector<T> >
+	template <class T, class Container = ft::vector<T> >
 	class stack
 	{
 		public:
@@ -49,39 +49,57 @@ namespace ft
 			}
 
 			template <class A, class B>
-			friend bool operator== (const stack<A, B>& lhs, const stack<A, B>& rhs) {
-				return (lhs.c == rhs.c);
-			}
+			friend bool operator== (const ft::stack<A, B>& lhs, const ft::stack<A, B>& rhs);
 
 			template <class A, class B>
-			friend bool operator!= (const stack<A, B>& lhs, const stack<A, B>& rhs) {
-				return (lhs.c != rhs.c);
-			}
+			friend bool operator!= (const ft::stack<A, B>& lhs, const ft::stack<A, B>& rhs);
 
 			template <class A, class B>
-			friend bool operator< (const stack<A, B>& lhs, const stack<A, B>& rhs) {
-				return (lhs.c < rhs.c);
-			}
+			friend bool operator< (const ft::stack<A, B>& lhs, const ft::stack<A, B>& rhs);
 
 			template <class A, class B>
-			friend bool operator<= (const stack<A, B>& lhs, const stack<A, B>& rhs) {
-				return (lhs.c <= rhs.c);
-			}
+			friend bool operator<= (const ft::stack<A, B>& lhs, const ft::stack<A, B>& rhs);
 
 			template <class A, class B>
-			friend bool operator> (const stack<A, B>& lhs, const stack<A, B>& rhs) {
-				return (lhs.c > rhs.c);
-			}
+			friend bool operator> (const ft::stack<A, B>& lhs, const ft::stack<A, B>& rhs);
 
 			template <class A, class B>
-			friend bool operator>= (const stack<A, B>& lhs, const stack<A, B>& rhs) {
-				return (lhs.c >= rhs.c);
-			}
+			friend bool operator>= (const ft::stack<A, B>& lhs, const ft::stack<A, B>& rhs);
 
 		protected:
 
 			container_type	c;
 	};
+
+	template <class A, class B>
+	bool operator== (const ft::stack<A, B>& lhs, const ft::stack<A, B>& rhs) {
+		return (lhs.c == rhs.c);
+	}
+
+	template <class A, class B>
+	bool operator!= (const ft::stack<A, B>& lhs, const ft::stack<A, B>& rhs) {
+		return (lhs.c != rhs.c);
+	}
+
+	template <class A, class B>
+	bool operator< (const ft::stack<A, B>& lhs, const ft::stack<A, B>& rhs) {
+		return (lhs.c < rhs.c);
+	}
+
+	template <class A, class B>
+	bool operator<= (const ft::stack<A, B>& lhs, const ft::stack<A, B>& rhs) {
+		return (lhs.c <= rhs.c);
+	}
+
+	template <class A, class B>
+	bool operator> (const stack<A, B>& lhs, const stack<A, B>& rhs) {
+		return (lhs.c > rhs.c);
+	}
+
+	template <class A, class B>
+	bool operator>= (const stack<A, B>& lhs, const stack<A, B>& rhs) {
+		return (lhs.c >= rhs.c);
+	}
 }
 
 #endif

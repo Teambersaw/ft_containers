@@ -1,8 +1,8 @@
 CXX= c++
 
-CXXFLAGS= -Wall -Wextra -Werror -MMD
+CXXFLAGS= -Wall -Wextra -Werror -std=c++98 -MMD
 
-SRCS= $(wildcard *.cpp)
+SRCS= main.cpp
 
 OBJS= ${SRCS:.cpp=.o}
 
@@ -10,16 +10,21 @@ OBJD= ${SRCS:.cpp=.d}
 
 NAME= ft_containers
 
-${NAME}: ${OBJS}
-	${CXX} ${CXXFLAGS} ${OBJS} -o ${NAME}
+NAME2= ft_containers_std
 
-all: ${NAME}
+${NAME}: ${OBJS}
+	${CXX} ${CXXFLAGS} -D NS=ft ${OBJS} -o ${NAME}
+
+${NAME2}: ${OBJS}
+	${CXX} ${CXXFLAGS} -D NS=std ${OBJS} -o ${NAME2}
+
+all: ${NAME} ${NAME2}
 
 clean:
 	rm -f ${OBJS} ${OBJD}
 
 fclean: clean
-	rm -f ${NAME}
+	rm -f ${NAME} ${NAME2}
 
 re: fclean
 	make all
