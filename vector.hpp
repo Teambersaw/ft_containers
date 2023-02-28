@@ -6,7 +6,7 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 10:47:02 by jrossett          #+#    #+#             */
-/*   Updated: 2023/02/24 13:46:28 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/02/27 12:59:27 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include "is_integral.hpp"
 # include "equal.hpp"
 # include <iostream>
-
 
 namespace ft
 {
@@ -160,11 +159,15 @@ namespace ft
 					_size = n;
 				}
 				else if (n > _size) {
-					reserve(n);
-					while (_size < n) {
-						_alloc.construct(_vector + _size, val);
-						_size++;
-					}
+					insert(end(), n - _size, val);
+					// if (_size + n > _capacity * 2)
+					// 	reserve(n +_size);
+					// else if (_size + n > _capacity)
+					// 	reserve(_capacity * 2);
+					// while (_size < n) {
+					// 	_alloc.construct(_vector + _size, val);
+					// 	_size++;
+					// }
 				}
 			}
 
@@ -187,7 +190,7 @@ namespace ft
 				else
 					_alloc.construct(_vector + _size, val);
 				_size++;
-				std::cout << "issou" << std::endl;
+				//std::cout << "issou" << std::endl;
 			}
 
 			void pop_back () {
@@ -281,7 +284,7 @@ namespace ft
 					if (_size + n > _capacity * 2)
 						_capacity = _size + n;
 					else if (n + _size > _capacity)
-						_capacity = _capacity * 2;
+						_capacity *= 2;
 					pointer tmp = _alloc.allocate(_capacity);
 					for (size_type i = 0; i < nb_begin; i++)
 						_alloc.construct(tmp + i, _vector[i]);

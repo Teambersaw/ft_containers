@@ -6,13 +6,17 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:40:22 by jrossett          #+#    #+#             */
-/*   Updated: 2023/02/24 10:27:22 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/02/27 10:45:12 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SURCHARGE_HPP
 # define SURCHARGE_HPP
 
+# include <vector>
+# include "vector.hpp"
+# include "stack.hpp"
+# include <stack>
 # include <iostream>
 
 	template<class T>

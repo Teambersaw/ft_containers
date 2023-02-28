@@ -3,32 +3,38 @@ CXX= c++
 CXXFLAGS= -Wall -Wextra -Werror -std=c++98 -MMD
 
 SRCS= main.cpp
+SRCS2= main2.cpp
 
 OBJS= ${SRCS:.cpp=.o}
+OBJS2= ${SRCS2:.cpp=.o}
 
 OBJD= ${SRCS:.cpp=.d}
+OBJD2= ${SRCS2:.cpp=.d}
 
 NAME= ft_containers
+NAME_STD = ft_containers_std
 
-NAME2= ft_containers_std
+%.o : %.cpp
+	${CXX} ${CXXFLAGS} -c $< -o $@
+
+all:	${NAME} ${NAME_STD}
 
 ${NAME}: ${OBJS}
-	${CXX} ${CXXFLAGS} -D NS=ft ${OBJS} -o ${NAME}
+	${CXX} ${CXXFLAGS} ${OBJS} -o ${NAME}
 
-${NAME2}: ${OBJS}
-	${CXX} ${CXXFLAGS} -D NS=std ${OBJS} -o ${NAME2}
-
-all: ${NAME} ${NAME2}
+${NAME_STD}: ${OBJS2}
+	${CXX} ${CXXFLAGS} ${OBJS2} -o ${NAME_STD}
 
 clean:
-	rm -f ${OBJS} ${OBJD}
+	rm -f ${OBJS} ${OBJD} ${OBJS2} ${OBJD2}
 
 fclean: clean
-	rm -f ${NAME} ${NAME2}
+	rm -f ${NAME_STD} ${NAME}
 
 re: fclean
-	make all
+	$(MAKE) all
 
--include ${OBJD}
+-include ${OBJD} ${OBJD2}
+
 
 .PHONY: all clean fclean re

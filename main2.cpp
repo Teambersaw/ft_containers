@@ -1,8 +1,8 @@
 // #include "surcharge.hpp"
-#include "vector.hpp"
-#include <iostream>
 
-using namespace ft;
+#include <vector>
+
+using namespace std;
 int main() {
 	vector<int> vect(4, 10);
 	vect.push_back(4);

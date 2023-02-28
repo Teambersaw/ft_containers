@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mazoise_main.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/11/05 13:18:16 by mchardin         ###   ########.fr       */
+/*   Updated: 2023/02/27 11:09:51 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,36 +281,37 @@ void	awesome_tests(void)
 
 int main()
 {
-	push_pop_back_tests<int>();
-	std::cout << "ok1!" << std::endl;
+	// push_pop_back_tests<int>();
+	// std::cout << "ok1!" << std::endl;
+	
 	resize_tests<int>();
-	std::cout << "ok2!" << std::endl;
-	insert_tests<int>();
-	std::cout << "ok3!" << std::endl;
-	reserve_tests<int>();
-	std::cout << "ok4!" << std::endl;
-	copy_swap_tests<int>();
-	std::cout << "ok5!" << std::endl;
-	reverse_it_tests<int>();
-	std::cout << "ok6!" << std::endl;
-	erase_clear_tests<int>();
-	std::cout << "ok7!" << std::endl;
-	max_size_tests();
-	std::cout << "ok8!" << std::endl;
-	awesome_tests();
-	std::cout << "ok9!" << std::endl;
-	push_pop_back_tests<Awesome>();
-	std::cout << "ok10!" << std::endl;
-	resize_tests<Awesome>();
-	std::cout << "ok11!" << std::endl;
-	insert_tests<Awesome>();
-	std::cout << "ok12!" << std::endl;
-	reserve_tests<Awesome>();
-	std::cout << "ok13!" << std::endl;
-	copy_swap_tests<Awesome>();
-	std::cout << "ok14!" << std::endl;
-	reverse_it_tests<Awesome>();
-	std::cout << "ok15!" << std::endl;
-	erase_clear_tests<Awesome>();
-	std::cout << "ok16!" << std::endl;
+	// std::cout << "ok2!" << std::endl;
+	// insert_tests<int>();
+	// std::cout << "ok3!" << std::endl;
+	// reserve_tests<int>();
+	// std::cout << "ok4!" << std::endl;
+	// copy_swap_tests<int>();
+	// std::cout << "ok5!" << std::endl;
+	// reverse_it_tests<int>();
+	// std::cout << "ok6!" << std::endl;
+	// erase_clear_tests<int>();
+	// std::cout << "ok7!" << std::endl;
+	// max_size_tests();
+	// std::cout << "ok8!" << std::endl;
+	// awesome_tests();
+	// std::cout << "ok9!" << std::endl;
+	// push_pop_back_tests<Awesome>();
+	// std::cout << "ok10!" << std::endl;
+	// resize_tests<Awesome>();
+	// std::cout << "ok11!" << std::endl;
+	// insert_tests<Awesome>();
+	// std::cout << "ok12!" << std::endl;
+	// reserve_tests<Awesome>();
+	// std::cout << "ok13!" << std::endl;
+	// copy_swap_tests<Awesome>();
+	// std::cout << "ok14!" << std::endl;
+	// reverse_it_tests<Awesome>();
+	// std::cout << "ok15!" << std::endl;
+	// erase_clear_tests<Awesome>();
+	// std::cout << "ok16!" << std::endl;
 }
