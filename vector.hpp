@@ -6,7 +6,7 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 10:47:02 by jrossett          #+#    #+#             */
-/*   Updated: 2023/02/27 12:59:27 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/02/28 16:40:20 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ namespace ft
 				*this = x;
 			}
 
-			~vector() {
+			virtual ~vector() {
 				for (size_type i = 0; i < _size; i++)
 					_alloc.destroy(_vector + i);
 				_alloc.deallocate(_vector, _capacity);
@@ -158,17 +158,8 @@ namespace ft
 						_alloc.destroy(_vector + i);
 					_size = n;
 				}
-				else if (n > _size) {
+				else if (n > _size)
 					insert(end(), n - _size, val);
-					// if (_size + n > _capacity * 2)
-					// 	reserve(n +_size);
-					// else if (_size + n > _capacity)
-					// 	reserve(_capacity * 2);
-					// while (_size < n) {
-					// 	_alloc.construct(_vector + _size, val);
-					// 	_size++;
-					// }
-				}
 			}
 
 			reference operator[] (size_type n) {
@@ -190,7 +181,6 @@ namespace ft
 				else
 					_alloc.construct(_vector + _size, val);
 				_size++;
-				//std::cout << "issou" << std::endl;
 			}
 
 			void pop_back () {

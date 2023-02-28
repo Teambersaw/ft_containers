@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack.hpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/28 16:40:11 by jrossett          #+#    #+#             */
+/*   Updated: 2023/02/28 16:40:13 by jrossett         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STACK_HPP
 # define STACK_HPP
 
@@ -18,7 +30,7 @@ namespace ft
 
 			explicit stack (const container_type& ctnr = container_type()) : c(ctnr) {}
 
-			~stack() {}
+			virtual ~stack() {}
 
 			stack& operator=( const stack& other ) {
 				c = other.c;
