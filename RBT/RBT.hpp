@@ -6,7 +6,7 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 10:46:36 by jrossett          #+#    #+#             */
-/*   Updated: 2023/03/01 16:25:29 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/03/02 12:26:44 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <memory>
 # include "../pair.hpp"
 # include "map.hpp"
+# include <iostream>
+# include <cstring>
 
 namespace ft
 {
@@ -33,8 +35,11 @@ namespace ft
 
 		public:
 
-			RBT() : root(NULL) {}
-			~RBT() {}
+			RBT() : root(NULL) {
+					nill = alloc.allocate(1);
+			}
+			~RBT() {
+			}
 
 			Node<Value>	*new_node(Value value, Node<Value> *parent)
 			{
@@ -43,8 +48,13 @@ namespace ft
 				New->left = nill;
 				New->right = nill;
 				New->value = value;
-				New->color = 0;
+				New->color = 1;
 				return (New);
+			}
+
+			template < class T1, class T2>
+			bool comp(const ft::pair<T1, T2> &x, const ft::pair<T1, T2> &y) {
+				return (x.first < y.first);
 			}
 
 			void	insert_node(Value value)
@@ -58,22 +68,49 @@ namespace ft
 					root->left = nill;
 					return ;
 				}
-				Node<Value> *tmp = root;
-				while (tmp->left != nill && tmp->right != nill)
+				Node<Value>	*tmp = root;
+				Node<Value>	*parent;
+				while (tmp != nill)
 				{
-					if (value < tmp->value)
+					parent = tmp;
+					if (comp(value, tmp->value))
 						tmp = tmp->left;
-					else
+					else if (comp(tmp->value, value))
 						tmp = tmp->right;
+					else
+						return ;
 				}
-				if (value < tmp->value)
-					tmp->left = new_node(value, tmp->left);
-				else
-					tmp->right = new_node(value, tmp->right);
+				if (comp(value, parent->value))
+					parent->left = new_node(value, parent);
+				else if (comp(parent->value, value))
+					parent->right = new_node(value, parent);
 			}
+				// if (comp(value, tmp->value))
+				// 	tmp->left = new_node(value, tmp);
+				// else if (comp(tmp->value, value))
+				// // 	tmp->right = new_node(value, tmp);
+				// 				Node<Value> *tmp = root;
+				// while (tmp != nill)
+				// {
+				// 	if (comp(value, tmp->value)) {
+				// 		tmp = tmp->left;
+				// 		if (tmp->left == nill) {
+				// 			tmp->left = new_node(value, tmp);
+				// 			return ;
+				// 		}
+				// 		tmp = tmp->left;
+				// 	}
+				// 	else if (comp(tmp->value, value)) {
+				// 		if (tmp->right == nill) {
+				// 			tmp->right = new_node(value, tmp);
+				// 			return ;
+				// 		}
+				// 		tmp = tmp->right;
+				// 	}
+				// }
 
 		private:
-
+		public:
 			std::allocator<Node<Value> > alloc;
 			Node<Value> *root;
 			Node<Value> *nill;
