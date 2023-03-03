@@ -22,7 +22,8 @@
 namespace ft
 {
 	template <class Value>
-	struct Node {
+	struct Node
+	{
 		Node	*parent;
 		Node	*left;
 		Node	*right;
@@ -31,14 +32,34 @@ namespace ft
 	};
 
 	template <class Value>
-	class RBT {
+	class RBT
+	{
 
 		public:
 
-			RBT() : root(NULL) {
+			template < class T1, class T2>
+			bool comp(const ft::pair<T1, T2> &x, const ft::pair<T1, T2> &y)
+			{
+				return (x.first < y.first);
+			}
+
+			RBT() : root(NULL)
+			{
 					nill = alloc.allocate(1);
 			}
-			~RBT() {
+			~RBT()
+			{
+				delete_all(root);
+				alloc.deallocate(nill, 1);
+			}
+
+			void	delete_all(Node<Value> *root)
+			{
+				if (root->left != nill)
+					delete_all(root->left);
+				if (root->right != nill)
+					delete_all(root->right);
+				alloc.deallocate(root, 1);
 			}
 
 			Node<Value>	*new_node(Value value, Node<Value> *parent)
@@ -52,22 +73,21 @@ namespace ft
 				return (New);
 			}
 
-			template < class T1, class T2>
-			bool comp(const ft::pair<T1, T2> &x, const ft::pair<T1, T2> &y) {
-				return (x.first < y.first);
+			void	new_root(Value value)
+			{
+				root = alloc.allocate(1);
+				root->value = value;
+				root->color = 0;
+				root->parent = nill;
+				root->right = nill;
+				root->left = nill;
+				return ;
 			}
 
 			void	insert_node(Value value)
 			{
-				if (root == NULL) {
-					root = alloc.allocate(1);
-					root->value = value;
-					root->color = 0;
-					root->parent = nill;
-					root->right = nill;
-					root->left = nill;
-					return ;
-				}
+				if (root == NULL)
+					return (new_root(value));
 				Node<Value>	*tmp = root;
 				Node<Value>	*parent;
 				while (tmp != nill)
@@ -85,29 +105,6 @@ namespace ft
 				else if (comp(parent->value, value))
 					parent->right = new_node(value, parent);
 			}
-				// if (comp(value, tmp->value))
-				// 	tmp->left = new_node(value, tmp);
-				// else if (comp(tmp->value, value))
-				// // 	tmp->right = new_node(value, tmp);
-				// 				Node<Value> *tmp = root;
-				// while (tmp != nill)
-				// {
-				// 	if (comp(value, tmp->value)) {
-				// 		tmp = tmp->left;
-				// 		if (tmp->left == nill) {
-				// 			tmp->left = new_node(value, tmp);
-				// 			return ;
-				// 		}
-				// 		tmp = tmp->left;
-				// 	}
-				// 	else if (comp(tmp->value, value)) {
-				// 		if (tmp->right == nill) {
-				// 			tmp->right = new_node(value, tmp);
-				// 			return ;
-				// 		}
-				// 		tmp = tmp->right;
-				// 	}
-				// }
 
 		private:
 		public:

@@ -71,19 +71,13 @@ std::ostream &operator<<(std::ostream &stream, RBT<T> & tree)
 int main()
 {
 	RBT<ft::pair<int, int> >	tree;
-	ft::pair<int, int> pr(50,1);
-	ft::pair<int, int> pr2(30,1);
-	ft::pair<int, int> pr3(40,1);
-	ft::pair<int, int> pr4(10,1);
-	ft::pair<int, int> pr5(60,1);
-	ft::pair<int, int> pr6(60,1);
-	tree.insert_node(pr);
-	tree.insert_node(ft::make_pair(49, 42));
-	tree.insert_node(pr2);
-	tree.insert_node(pr3);
-	tree.insert_node(pr4);
-	tree.insert_node(pr5);
-	tree.insert_node(pr6);
+	tree.insert_node(ft::make_pair(50, 42));
+	tree.insert_node(ft::make_pair(60, 42));
+	tree.insert_node(ft::make_pair(70, 42));
+	tree.insert_node(ft::make_pair(20, 42));
+	tree.insert_node(ft::make_pair(30, 42));
+	tree.insert_node(ft::make_pair(40, 42));
+	tree.insert_node(ft::make_pair(90, 42));
 	std::cout << tree << '\n';
 	return (0);
 }
