@@ -147,7 +147,7 @@ namespace ft
 
 			iterator insert (iterator position, const value_type& val) {
 				(void) position;
-				insert(val);
+				return (insert(val).fisrt);
 			}
 
 			template <class InputIterator>

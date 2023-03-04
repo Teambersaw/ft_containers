@@ -15,7 +15,7 @@
 
 # include <memory>
 # include "../pair.hpp"
-# include "map.hpp"
+//# include "map.hpp"
 # include <iostream>
 # include <cstring>
 
@@ -65,12 +65,12 @@ namespace ft
 					delete_all(del->left);
 				if (del->right != nill)
 					delete_all(del->right);
-				alloc.deallocate(del, 1);
+				allocator.deallocate(del, 1);
 			}
 
 			Node<Value>	*new_node(Value value, Node<Value> *parent)
 			{
-				Node<Value>	*New = alloc.allocate(1);
+				Node<Value>	*New = allocator.allocate(1);
 				New->parent = parent;
 				New->left = nill;
 				New->right = nill;
