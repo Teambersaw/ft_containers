@@ -299,7 +299,73 @@ namespace ft
 
 			void	delete_fix(Node<Value>	*node)
 			{
-
+				Node<Value>	*w;
+				while (node != root && node->color == 0)
+				{
+					if (node == node->parent->left)
+					{
+						w = node->parent->right;
+						if (node->parent->right->color == 1)
+						{
+							node->parent->right->color = 0;
+							node->parent->color = 1;
+							left_rotate(node->parent);
+							w = node->parent->right;
+						}
+						if (w->left->color == 0 && w->right->color == 0)
+						{
+							w->color = 1;
+							node = node->parent;
+						}
+						else
+						{
+							if (w->right->color == 0)
+							{
+								w->left->color = 0;
+								w->color = 1;
+								right_rotate(w);
+								w = node->parent->right;
+							}
+							w->color = node->parent->color;
+							node->parent->color = 0;
+							w->right->color = 0;
+							left_rotate(node->parent);
+							node = root;
+						}
+					}
+					else
+					{
+						w = node->parent->left;
+						if (node->parent->left->color == 1)
+						{
+							node->parent->left->color = 0;
+							node->parent->color = 1;
+							right_rotate(node->parent);
+							w = node->parent->left;
+						}
+						if (w->right->color == 0 && w->left->color == 0)
+						{
+							w->color = 1;
+							node = node->parent;
+						}
+						else 
+						{
+							if (w->left->color == 0)
+							{
+								w->right->color = 0;
+								w->color = 1;
+								left_rotate(w);
+								w = node->parent->left;
+							}
+							w->color = node->parent->color;
+							node->parent->color = 0;
+							w->left->color = 0;
+							right_rotate(node->parent);
+							node = root;
+						}
+					}
+				}
+				node->color = 0;
 			}
 
 		private:
