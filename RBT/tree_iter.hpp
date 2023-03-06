@@ -8,7 +8,7 @@ namespace ft
 {
 
 	template <class T>
-	class iterator
+	class RBiter
 	{
 		public:
 
@@ -20,29 +20,21 @@ namespace ft
 			typedef ft::bidirectional_iterator_tag		iterator_category;
 
 
-			iterator() : _it() {}
-			iterator(Node it) : _it(it) {}
+			RBiter() : _it() {}
+			RBiter(Node it) : _it(it) {}
 
-			iterator(const iterator<value_type> &x) {
+			RBiter(const RBiter<value_type> &x) {
 				*this = x;
 			}
 
-			iterator &operator=(const iterator<value_type> &x) {
+			RBiter &operator=(const RBiter<value_type> &x) {
 				if (this == &x)
 					return (*this);
 				_it = x.base();
 				return (*this);
 			}
 
-			~iterator() {}
-
-			bool operator==(const iterator &x) const {
-				return (_it == x.base());
-			}
-
-			bool operator!=(const iterator &x) const {
-				return (_it != x.base());
-			}
+			~RBiter() {}
 
 			reference	operator*() const {
 				return (_it->value);
@@ -52,26 +44,26 @@ namespace ft
 				return (&_it->value);
 			}
 
-			iterator& operator++()
+			RBiter& operator++()
 			{
 				
 				return (*this);
 			}
 
-			iterator operator++(int) {
-				iterator tmp = *this;
+			RBiter operator++(int) {
+				RBiter tmp = *this;
 				++(*this);
 				return tmp;
 			}
 
-			iterator& operator--()
+			RBiter& operator--()
 			{
 				
 				return (*this);
 			}
 
-			iterator operator--(int) {
-				iterator tmp = *this;
+			RBiter operator--(int) {
+				RBiter tmp = *this;
 				--(*this);
 				return tmp;
 			}
@@ -84,6 +76,96 @@ namespace ft
 
 			Node	_it;
 	};
+
+	template <class T>
+	class CRBiter
+	{
+		public:
+
+			typedef ptrdiff_t							difference_type;
+			typedef const T								value_type;
+			typedef const T*							pointer;
+			typedef const T&							reference;
+			typedef Node<value_type>*					Node;
+			typedef ft::bidirectional_iterator_tag		iterator_category;
+
+
+			CRBiter() : _it() {}
+			CRBiter(Node it) : _it(it) {}
+
+			CRBiter(const CRBiter<value_type> &x) {
+				*this = x;
+			}
+
+			CRBiter &operator=(const CRBiter<value_type> &x) {
+				if (this == &x)
+					return (*this);
+				_it = x.base();
+				return (*this);
+			}
+
+			~CRBiter() {}
+
+			reference	operator*() const {
+				return (_it->value);
+			}
+
+			pointer operator->() const {
+				return (&_it->value);
+			}
+
+			CRBiter& operator++()
+			{
+				
+				return (*this);
+			}
+
+			CRBiter operator++(int) {
+				CRBiter tmp = *this;
+				++(*this);
+				return tmp;
+			}
+
+			CRBiter& operator--()
+			{
+				
+				return (*this);
+			}
+
+			CRBiter operator--(int) {
+				CRBiter tmp = *this;
+				--(*this);
+				return tmp;
+			}
+
+			Node	base() const {
+				return (_it);
+			}
+
+		private:
+
+			Node	_it;
+	};
+
+	template<class A, class B>
+	bool operator==(const RBiter<A> &lhs, const RBiter<B> &rhs) {
+		return (lhs.base() == rhs.base());
+	}
+
+	template<class A, class B>
+	bool operator!=(const RBiter<A> &lhs, const RBiter<B> &rhs) {
+		return (lhs.base() != rhs.base());
+	}
+
+	template<class A, class B>
+	bool operator==(const CRBiter<A> &lhs, const CRBiter<B> &rhs) {
+		return (lhs.base() == rhs.base());
+	}
+
+	template<class A, class B>
+	bool operator!=(const CRBiter<A> &lhs, const CRBiter<B> &rhs) {
+		return (lhs.base() != rhs.base());
+	}
 
 }
 

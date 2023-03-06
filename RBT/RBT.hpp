@@ -6,7 +6,7 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 10:46:36 by jrossett          #+#    #+#             */
-/*   Updated: 2023/03/02 12:26:44 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:55:40 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,19 @@ namespace ft
 		bool	color;
 	};
 
-	template <class Value>
+	template <class Value, class allocator_type, class comp, class key_compare>
 	class RBT
 	{
 
 		public:
 
-			template < class T1, class T2>
-			bool comp(const ft::pair<T1, T2> &x, const ft::pair<T1, T2> &y)
-			{
-				return (x.first < y.first);
-			}
+			typedef typename allocator_type::template rebind<Node<Value> >::other Alloc;
 
-			template < class T1, class T2>
-			bool comp_key(const ft::pair<T1, T2> &x, const ft::pair<T1, T2> &y)
-			{
-				return (x.first == y.first);
-			}
-
-			RBT() : root(NULL)
+			RBT(comp compare) : root(NULL), _comp(compare)
 			{
 					nill = allocator.allocate(1);
+					nill->left = NULL;
+					nill->right = NULL;
 			}
 			~RBT()
 			{
@@ -99,21 +91,21 @@ namespace ft
 				while (tmp != nill)
 				{
 					parent = tmp;
-					if (comp(value, tmp->value))
+					if (_comp(value, tmp->value))
 						tmp = tmp->left;
-					else if (comp(tmp->value, value))
+					else if (_comp(tmp->value, value))
 						tmp = tmp->right;
 					else
 						return ;
 				}
-				if (comp(value, parent->value))
+				if (_comp(value, parent->value))
 				{
 					parent->left = new_node(value, parent);
 					if (parent->color == 0)
 						return ;
 					insert_fix(parent->left);
 				}
-				else if (comp(parent->value, value))
+				else if (_comp(parent->value, value))
 				{
 					parent->right = new_node(value, parent);
 					if (parent->color == 0)
@@ -214,9 +206,9 @@ namespace ft
 				Node<Value> *node = root;
 				while (node != nill)
 				{
-					if (comp_key(key, node->value))
+					if (!_comp(key, node->value) && !_comp(node->value, key))
 						return node;
-					else if (comp(key, node->value))
+					else if (_comp(key, node->value))
 						node = node->left;
 					else
 						node = node->right;
@@ -243,6 +235,10 @@ namespace ft
 				while (node->right != nill)
 					node = node->right;
 				return (node);
+			}
+
+			Alloc get_allocator() {
+				return (this->allocator);
 			}
 
 			void	transplant(Node<Value> *node, Node<Value> *noded)
@@ -370,9 +366,11 @@ namespace ft
 
 		private:
 		public:
-			std::allocator<Node<Value> > allocator;
-			Node<Value> *root;
-			Node<Value> *nill;
+
+			Alloc			allocator;
+			Node<Value>		*root;
+			comp			_comp;
+			Node<Value>		*nill;
 	};
 
 }

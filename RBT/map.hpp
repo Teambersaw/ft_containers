@@ -6,7 +6,7 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 13:24:35 by jrossett          #+#    #+#             */
-/*   Updated: 2023/03/01 14:48:01 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:42:52 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <memory>
 # include "../iterator.hpp"
 # include "../equal.hpp"
+# include "tree_iter.hpp"
 
 namespace ft
 {
@@ -35,15 +36,17 @@ namespace ft
 			typedef	typename	allocator_type::const_reference					const_reference;
 			typedef	typename	allocator_type::pointer							pointer;
 			typedef	typename	allocator_type::const_pointer					const_pointer;
-			// typedef			RBiter<value_type>								iterator;
-			// typedef			CRBiter<value_type>								const_iterator;
-			// typedef				ft::reverse_iterator<iterator>					reverse_iterator;
-			// typedef				ft::reverse_iterator<const_iterator>			const_reverse_iterator;
-			//typedef	typename	ft::iterator_traits<iterator>::difference_type	difference_type;
+			typedef				RBiter<value_type>								iterator;
+			typedef				CRBiter<value_type>								const_iterator;
+			typedef				ft::reverse_iterator<iterator>					reverse_iterator;
+			typedef				ft::reverse_iterator<const_iterator>			const_reverse_iterator;
+			typedef	typename	ft::iterator_traits<iterator>::difference_type	difference_type;
 			typedef				std::size_t										size_type;
 
 			class value_compare: public std::binary_function<value_type, value_type, bool>
 			{
+				private:
+					friend class map;
 				public:
 
 					typedef bool result_type;
@@ -60,14 +63,14 @@ namespace ft
 					value_compare (Compare c) : comp(c) {}
 			};
 
-			explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _comp(comp), _alloc(alloc), _tree(RBT(value_type, _comp, _alloc)), _size(0) {}
+			explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _comp(comp), _alloc(alloc), _tree(RBT<value_type, allocator_type, value_compare, key_compare>(value_compare(_comp))), _size(0) {}
 
 			template <class InputIterator>
-			map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())  : _comp(comp), _alloc(alloc), _tree(RBT(value_type, _comp, _alloc)), _size(0) {
+			map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())  : _comp(comp), _alloc(alloc), _tree(RBT<value_type, allocator_type, value_compare, key_compare>(value_compare(_comp))), _size(0) {
 				insert(first, last);
 			}
 
-			map (const map& x) : _comp(x.comp), _alloc(x.alloc), _tree(RBT(value_type, _comp, _alloc)), _size(0) {} {
+			map (const map& x) : _comp(x.comp), _alloc(x.alloc), _tree(RBT<value_type, allocator_type, value_compare, key_compare>(value_compare(_comp))), _size(0) {
 				insert(x.begin(), x.end());
 			}
 
@@ -77,14 +80,14 @@ namespace ft
 			{
 				if (this == &x)
 					return (*this);
-				clear()
+				clear();
 				insert(x.begin, x.end);
 				return (*this);
 			}
 
-			// mapped_type& operator[] (const key_type& k) {
-			// 	(*((this->insert(make_pair(k,mapped_type()))).first)).second
-			// }
+			mapped_type& operator[] (const key_type& k) {
+				return ((*((this->insert(make_pair(k,mapped_type()))).first)).second);
+			}
 
 			bool empty() const {
 				return (!_size);
@@ -95,15 +98,15 @@ namespace ft
 			}
 
 			size_type max_size() const {
-				return (_alloc.max_size());
+				return ((_tree.get_allocator()).max_size());
 			}
 
 			iterator begin() {
-				return (iterator(_tree.minimum(tree.getRoot())));
+				return (iterator(_tree.minimum(_tree.getRoot())));
 			}
 
 			const_iterator begin() const {
-				return (const_iterator(_tree.minimum(tree.getRoot())));
+				return (const_iterator(_tree.minimum(_tree.getRoot())));
 			}
 
 			iterator end() {
@@ -123,18 +126,19 @@ namespace ft
 			}
 
 			reverse_iterator rend() {
-				return (reverse_iterator(_tree.minimum(tree.getRoot())));
+				return (reverse_iterator(_tree.minimum(_tree.getRoot())));
 			}
 
 			const_reverse_iterator rend() const {
-				return (const_reverse_iterator(_tree.minimum(tree.getRoot())));;
+				return (const_reverse_iterator(_tree.minimum(_tree.getRoot())));;
 			}
 
-			ft::pair<iterator,bool> insert (const value_type& val) //A TERMINER
+			ft::pair<iterator,bool> insert (const value_type& val)
 			{
 				ft::pair<iterator,bool>	pr;
 
-				if (//cond)
+				pr.first = find(val);
+				if (pr.first != end())
 				{
 					pr.second = true;
 					_tree.insert_node(val);
@@ -156,12 +160,17 @@ namespace ft
 					insert(*(first++));
 			}
 
-			void erase (iterator position) { //hohpohpho
-
+			void erase (iterator position) {
+					erase(position.first);
 			}
 
-			size_type erase (const key_type& k) { //hophohpohp
-
+			size_type erase (const key_type& k) {
+				iterator it = find(k);
+				if (it == end())
+					return (0);
+				_tree.erase_node(it.base());
+				_size--;
+				return (1);
 			}
 
 			void erase (iterator first, iterator last) {
@@ -170,8 +179,8 @@ namespace ft
 				}
 			}
 
-			allocator_type get_allocator() const { //pas surusrusr
-				return (_alloc);
+			allocator_type get_allocator() const {
+				return (_tree.get_allocator());
 			}
 
 			void swap (map& x) { //hophohp
@@ -186,8 +195,8 @@ namespace ft
 				return (_comp);
 			}
 
-			value_compare value_comp() const { //????????
-				return (_comp);
+			value_compare value_comp() const {
+				return (value_compare(_comp));
 			}
 
 			iterator find(const key_type &k)
@@ -275,9 +284,9 @@ namespace ft
 
 		private:
 
-			allocator_type	_alloc;
 			key_compare		_comp;
-			RBT				_tree;
+			allocator_type	_alloc;
+			RBT<value_type, allocator_type, value_compare, key_compare>		_tree;
 			size_type		_size;
 	};
 
