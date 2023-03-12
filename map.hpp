@@ -14,11 +14,12 @@
 # define MAP_HPP
 
 # include "RBT.hpp"
-# include "../pair.hpp"
+# include "pair.hpp"
 # include <memory>
-# include "../iterator.hpp"
-# include "../equal.hpp"
+# include "iterator.hpp"
+# include "equal.hpp"
 # include "tree_iter.hpp"
+# include <algorithm>
 
 namespace ft
 {
@@ -29,7 +30,7 @@ namespace ft
 
 			typedef				Key												key_type;
 			typedef				T												mapped_type;
-			typedef				pair<const Key, T>								value_type;
+			typedef				pair<const key_type, T>								value_type;
 			typedef				Compare											key_compare;
 			typedef				Alloc											allocator_type;
 			typedef	typename	allocator_type::reference						reference;
@@ -70,7 +71,7 @@ namespace ft
 				insert(first, last);
 			}
 
-			map (const map& x) : _comp(x.comp), _alloc(x.alloc), _tree(RBT<value_type, allocator_type, value_compare, key_compare>(value_compare(_comp))), _size(0) {
+			map (const map& x) : _comp(x._comp), _alloc(x._alloc), _tree(RBT<value_type, allocator_type, value_compare, key_compare>(value_compare(_comp))), _size(0) {
 				insert(x.begin(), x.end());
 			}
 
@@ -81,12 +82,15 @@ namespace ft
 				if (this == &x)
 					return (*this);
 				clear();
-				insert(x.begin, x.end);
+				insert(x.begin(), x.end());
 				return (*this);
 			}
 
 			mapped_type& operator[] (const key_type& k) {
-				return ((*((this->insert(make_pair(k,mapped_type()))).first)).second);
+				iterator f = find(k);
+				if (f == end())
+					return (insert(ft::make_pair(k, mapped_type())).first->second);
+				return (f->second);
 			}
 
 			bool empty() const {
@@ -102,11 +106,11 @@ namespace ft
 			}
 
 			iterator begin() {
-				return (iterator(_tree.minimum(_tree.getRoot())));
+				return (iterator(_tree.min()));
 			}
 
 			const_iterator begin() const {
-				return (const_iterator(_tree.minimum(_tree.getRoot())));
+				return (const_iterator(_tree.min()));
 			}
 
 			iterator end() {
@@ -126,22 +130,22 @@ namespace ft
 			}
 
 			reverse_iterator rend() {
-				return (reverse_iterator(_tree.minimum(_tree.getRoot())));
+				return (reverse_iterator(_tree.min()));
 			}
 
 			const_reverse_iterator rend() const {
-				return (const_reverse_iterator(_tree.minimum(_tree.getRoot())));;
+				return (const_reverse_iterator(_tree.min()));
 			}
 
 			ft::pair<iterator,bool> insert (const value_type& val)
 			{
-				ft::pair<iterator,bool>	pr;
+				ft::pair<iterator, bool>	pr;
 
-				pr.first = find(val);
-				if (pr.first != end())
+				pr.first = find(val.first);
+				if (pr.first == end())
 				{
+					pr.first = iterator(_tree.insert_node(val));
 					pr.second = true;
-					_tree.insert_node(val);
 					_size++;
 				}
 				else
@@ -157,25 +161,27 @@ namespace ft
 			template <class InputIterator>
 			void insert (InputIterator first, InputIterator last) {
 				while (first != last)
-					insert(*(first++));
+					insert(*(first)++);
 			}
 
 			void erase (iterator position) {
-					erase(position.first);
+				_tree.delete_node(position.base()->value);
+				_size--;
 			}
 
 			size_type erase (const key_type& k) {
 				iterator it = find(k);
 				if (it == end())
 					return (0);
-				_tree.erase_node(it.base());
+				_tree.delete_node(it.base()->value);
 				_size--;
 				return (1);
 			}
 
 			void erase (iterator first, iterator last) {
 				while (first != last) {
-					erase(*(first++));
+					std::cout << "ah\n";
+					erase(first++);
 				}
 			}
 
@@ -183,8 +189,11 @@ namespace ft
 				return (_tree.get_allocator());
 			}
 
-			void swap (map& x) { //hophohp
-
+			void swap (map& x)
+			{
+				std::swap(this->_size, x._size);
+				std::swap(this->_tree.getNill(), x._tree.getNill());
+				std::swap(this->_tree.getRoot(), x._tree.getRoot());
 			}
 
 			void clear() {

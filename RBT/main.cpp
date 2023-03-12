@@ -61,31 +61,27 @@ void printTree(std::ostream &stream, Node<T>* node, Node<T>* nil, subTree *prev,
     printTree(stream, node->left, nil, &sub, false);
 }
 
-// template <class T>
-// std::ostream &operator<<(std::ostream &stream, RBT<T> & tree)
-// {
-//     printTree(stream, tree.root, tree.nill, NULL, false);
-//     stream << std::endl;
-//     return (stream);
-// }
+template <class T, class B>
+std::ostream &operator<<(std::ostream &stream, ft::map<T, B> & tree)
+{
+    printTree(stream, tree._tree.root, tree._tree.nill, NULL, false);
+    stream << std::endl;
+    return (stream);
+}
 
 int main()
 {
-	ft::map<int, int> my_map;
-	// RBT<ft::pair<int, int> >	tree;
-	// tree.insert_node(ft::make_pair(11, 42));
-	// tree.insert_node(ft::make_pair(2, 42));
-	// tree.insert_node(ft::make_pair(14, 42));
-	// tree.insert_node(ft::make_pair(15, 42));
-	// tree.insert_node(ft::make_pair(1, 42));
-	// tree.insert_node(ft::make_pair(7, 42));
-	// tree.insert_node(ft::make_pair(5, 42));
-	// tree.insert_node(ft::make_pair(8, 42));
-	// std::cout << tree << '\n';
-	// tree.insert_node(ft::make_pair(4, 42));
-	// tree.delete_node(ft::make_pair(14, 42));
-	// std::cout << tree << '\n';
-	// return (0);
+	ft::map<int, int> tree;
+	tree.insert(ft::make_pair(11, 42));
+	tree.insert(ft::make_pair(2, 44));
+	tree.insert(ft::make_pair(14, 42));
+	tree.insert(ft::make_pair(15, 42));
+	tree.insert(ft::make_pair(1, 42));
+	tree.insert(ft::make_pair(7, 42));
+	tree.insert(ft::make_pair(5, 42));
+	tree.insert(ft::make_pair(8, 42));
+	std::cout << tree << '\n';
+	 return (0);
 }
 
 

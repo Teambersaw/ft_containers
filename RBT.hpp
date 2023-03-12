@@ -14,7 +14,6 @@
 # define RBT_HPP
 
 # include <memory>
-# include "../pair.hpp"
 //# include "map.hpp"
 # include <iostream>
 # include <cstring>
@@ -24,11 +23,15 @@ namespace ft
 	template <class Value>
 	struct Node
 	{
-		Node	*parent;
-		Node	*left;
-		Node	*right;
-		Value	value;
-		bool	color;
+			Value	value;
+			Node	*parent;
+			Node	*left;
+			Node	*right;
+			bool	color;
+
+			Node() : parent(NULL), left(NULL), right(NULL), color(0) {}
+			Node(Value &val) : value(val), parent(NULL), left(NULL), right(NULL), color(0) {}
+			~Node() {}
 	};
 
 	template <class Value, class allocator_type, class comp, class key_compare>
@@ -39,15 +42,20 @@ namespace ft
 
 			typedef typename allocator_type::template rebind<Node<Value> >::other Alloc;
 
-			RBT(comp compare) : root(NULL), _comp(compare)
+			RBT(comp compare) : _comp(compare)
 			{
 					nill = allocator.allocate(1);
+					nill->parent = nill;
 					nill->left = NULL;
 					nill->right = NULL;
+					nill->color = 0;
+					root = nill;
+					root->parent = nill;
 			}
 			~RBT()
 			{
-				delete_all(root);
+				if (root != NULL && root != nill)
+					delete_all(root);
 				allocator.deallocate(nill, 1);
 			}
 
@@ -57,61 +65,57 @@ namespace ft
 					delete_all(del->left);
 				if (del->right != nill)
 					delete_all(del->right);
+				allocator.destroy(del);
 				allocator.deallocate(del, 1);
 			}
 
 			Node<Value>	*new_node(Value value, Node<Value> *parent)
 			{
 				Node<Value>	*New = allocator.allocate(1);
+				allocator.construct(New, value);
 				New->parent = parent;
 				New->left = nill;
 				New->right = nill;
-				New->value = value;
 				New->color = 1;
+				if (nill->parent == nill)
+					nill->parent = New;
+				else if (_comp(nill->parent->value, New->value))
+					nill->parent = New;
 				return (New);
 			}
 
-			void	new_root(Value value)
+			Node<Value>	*insert_node(Value value)
 			{
-				root = allocator.allocate(1);
-				root->value = value;
-				root->color = 0;
-				root->parent = nill;
-				root->right = nill;
-				root->left = nill;
-				return ;
-			}
-
-			void	insert_node(Value value)
-			{
-				if (root == NULL)
-					return (new_root(value));
+				if (root == nill) {
+					root = new_node(value, nill);
+					root->color = 0;
+					return root;
+				}
 				Node<Value>	*tmp = root;
 				Node<Value>	*parent;
-				while (tmp != nill)
+				while (tmp != nill) //inutile ?
 				{
 					parent = tmp;
 					if (_comp(value, tmp->value))
 						tmp = tmp->left;
 					else if (_comp(tmp->value, value))
 						tmp = tmp->right;
-					else
-						return ;
 				}
 				if (_comp(value, parent->value))
 				{
 					parent->left = new_node(value, parent);
-					if (parent->color == 0)
-						return ;
-					insert_fix(parent->left);
+					if (parent->color == 1)
+						insert_fix(parent->left);
+					return parent->left;
 				}
 				else if (_comp(parent->value, value))
 				{
 					parent->right = new_node(value, parent);
-					if (parent->color == 0)
-						return ;
-					insert_fix(parent->right);
+					if (parent->color == 1)
+						insert_fix(parent->right);
+					return parent->right;
 				}
+				return (NULL);
 			}
 
 			void	insert_fix(Node<Value> *n)
@@ -219,25 +223,37 @@ namespace ft
 			Node<Value> *getNill() const {
 				return (nill);
 			}
-			Node<Value> *getRoot() const {
+
+			Node<Value> const *getRoot() const {
 				return (root);
 			}
 
-			Node<Value>	*minimum(Node<Value> *node)
-			{
-				while (node->left != nill)
-					node = node->left;
-				return (node);
+			Node<Value> *min() const {
+				return (minimum(root));
 			}
 
-			Node<Value>	*maximum(Node<Value> *node)
+			Node<Value> *max() const {
+				return (maximum(root));
+			}
+			Node<Value>	*minimum(Node<Value> *node) const
 			{
-				while (node->right != nill)
-					node = node->right;
-				return (node);
+				Node<Value> *tmp = node;
+
+				while (tmp != nill && tmp->left != nill)
+					tmp = tmp->left;
+				return (tmp);
 			}
 
-			Alloc get_allocator() {
+			Node<Value>	*maximum(Node<Value> *node) const
+			{
+				Node<Value> *tmp = node;
+
+				while (tmp != nill && tmp->right != nill)
+					tmp = tmp->right;
+				return (tmp);
+			}
+
+			Alloc const &get_allocator() const {
 				return (this->allocator);
 			}
 
@@ -365,7 +381,6 @@ namespace ft
 			}
 
 		private:
-		public:
 
 			Alloc			allocator;
 			Node<Value>		*root;
