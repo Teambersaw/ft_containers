@@ -1,6 +1,6 @@
 #include "RBT.hpp"
 #include "map.hpp"
-#include "../pair.hpp"
+#include "pair.hpp"
 #include <iostream>
 #include <map>
 #include <iterator>
@@ -69,57 +69,66 @@ std::ostream &operator<<(std::ostream &stream, ft::map<T, B> & tree)
     return (stream);
 }
 
-int main()
+template <typename T>
+std::string	printPair(const T &iterator, bool nl = true, std::ostream &o = std::cout)
 {
-	ft::map<int, int> tree;
-	tree.insert(ft::make_pair(11, 42));
-	tree.insert(ft::make_pair(2, 44));
-	tree.insert(ft::make_pair(14, 42));
-	tree.insert(ft::make_pair(15, 42));
-	tree.insert(ft::make_pair(1, 42));
-	tree.insert(ft::make_pair(7, 42));
-	tree.insert(ft::make_pair(5, 42));
-	tree.insert(ft::make_pair(8, 42));
-	std::cout << tree << '\n';
-	 return (0);
+	o << "key: " << iterator->first << " | value: " << iterator->second;
+	if (nl)
+		o << std::endl;
+	return ("");
 }
 
+template <typename T_MAP>
+void	printSize(T_MAP const &mp, bool print_content = 1)
+{
+	std::cout << "size: " << mp.size() << std::endl;
+	std::cout << "max_size: " << mp.max_size() << std::endl;
+	if (print_content)
+	{
+		typename T_MAP::const_iterator it = mp.begin(), ite = mp.end();
+		std::cout << std::endl << "Content is:" << std::endl;
+		for (; it != ite; ++it)
+			std::cout << "- " << printPair(it, false) << std::endl;
+	}
+}
 
-// int main()
-// {
-// 	std::map<int, int> tree;
-// 	ft::pair<int, int> pr(50,1);
-// 	ft::pair<int, int> pr2(30,1);
-// 	ft::pair<int, int> pr3(10,1);
-// 	ft::pair<int, int> pr4(40,1);
-// 	ft::pair<int, int> pr5(60,1);
-// 	ft::pair<int, int> pr6(60,1);
-	
-	
-// 	return (0);
-// }
+template <typename T_MAP>
+void print_info(T_MAP map)
+{
+	std::cout << "\n\n###############################################" << std::endl;
+	printSize<T_MAP>(map);
+	std::cout << "\n" << map << '\n';
+	std::cout << "Root value : " << map._tree.root->value.first << std::endl;
+	std::cout << "Max value : " << map._tree.maximum(map._tree.root)->value.first << std::endl;
+	std::cout << "Nill parent value : " << map._tree.nill->parent->value.first << std::endl;
+	std::cout << "\n###############################################" << std::endl;
+}
+int main()
+{
+	ft::map<int, const char*> map;
+	map.insert(ft::make_pair(0, "A"));
+	map.insert(ft::make_pair(1, "B"));
+	map.insert(ft::make_pair(2, "C"));
+	map.insert(ft::make_pair(3, "D"));
+	map.insert(ft::make_pair(4, "E"));
+	map.insert(ft::make_pair(5, "F"));
+	map.insert(ft::make_pair(6, "G"));
+	map.insert(ft::make_pair(7, "H"));
+	map.insert(ft::make_pair(8, "I"));
+	map.insert(ft::make_pair(9, "J"));
+	print_info(map);
 
-			// 	while (tmp->left != nill && tmp->right != nill)
-			// 	{
-			// 		if (value < tmp->value) {
-			// 			if (tmp->left == nill)
-			// 				break;
-			// 			std::cout << "loop left" << std::endl;
-			// 			tmp = tmp->left;
-			// 		}
-			// 		else {
-			// 			if (tmp->right == nill)
-			// 				break;
-			// 			std::cout << "loop right" << std::endl;
-			// 			tmp = tmp->right;
-			// 		}
-			// 	}
-			// 	if (value < tmp->value) {
-			// 		std::cout << "new node left" << std::endl;
-			// 		tmp->left = new_node(value, tmp->left);
-			// 	}
-			// 	else {
-			// 		std::cout << "new node right" << std::endl;
-			// 		tmp->right = new_node(value, tmp->right);
-			// 	}
-			// }
+	map.erase(++map.begin());
+	print_info(map);
+
+
+	map.erase(map.begin());
+	print_info(map);
+
+	std::cout << "Valeur de map.end()->parent : " << (map.end()).base()->parent->value.first << std::endl;
+	std::cout << "Valeur de --map.end() : " << (--map.end()).base()->value.first << std::endl;
+	map.erase(--map.end());
+	print_info(map);
+
+	return (0);
+}

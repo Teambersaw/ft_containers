@@ -386,6 +386,7 @@ namespace ft
 			}
 
 		private:
+		public:
 
 			Alloc			allocator;
 			Node<Value>		*root;

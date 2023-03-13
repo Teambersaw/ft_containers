@@ -76,8 +76,9 @@ namespace ft
 			{
 				if (is_nill(_it))
 				{
-					std::cout << "oui\n";
-					_it = maximum(_it->parent);
+					std::cout << "ici" << std::endl;
+					std::cout << _it->parent->value.first << std::endl;
+					_it = _it->parent;
 					return (*this);
 				}
 				if (!is_nill(_it->left))
@@ -112,6 +113,7 @@ namespace ft
 			}
 
 		private:
+		public:
 
 			Nodes maximum(Nodes node) const
 			{
@@ -201,7 +203,6 @@ namespace ft
 			{
 				if (is_nill(_it))
 				{
-					_it = maximum(_it->parent);
 					_it = _it->parent;
 					return (*this);
 				}
@@ -237,6 +238,7 @@ namespace ft
 			}
 
 		private:
+		public:
 
 			Nodes maximum(Nodes node) const
 			{

@@ -290,6 +290,7 @@ namespace ft
 			}
 
 		private:
+		public:
 
 			key_compare		_comp;
 			allocator_type	_alloc;
