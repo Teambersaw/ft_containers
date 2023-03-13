@@ -68,7 +68,6 @@ namespace ft
 
 			RBiter operator++(int) {
 				RBiter tmp = *this;
-				std::cout << "adsfh\n";
 				++(*this);
 				return tmp;
 			}
@@ -77,7 +76,8 @@ namespace ft
 			{
 				if (is_nill(_it))
 				{
-					_it = _it->parent;
+					std::cout << "oui\n";
+					_it = maximum(_it->parent);
 					return (*this);
 				}
 				if (!is_nill(_it->left))
@@ -113,7 +113,16 @@ namespace ft
 
 		private:
 
-			bool is_nill(Nodes it) {
+			Nodes maximum(Nodes node) const
+			{
+				Nodes tmp = node;
+
+				while (!is_nill(tmp) && !is_nill(tmp->right))
+					tmp = tmp->right;
+				return (tmp);
+			}
+
+			bool is_nill(Nodes it) const {
 				if (it->left == NULL && it->right == NULL)
 					return (1);
 				return (0);
@@ -192,6 +201,7 @@ namespace ft
 			{
 				if (is_nill(_it))
 				{
+					_it = maximum(_it->parent);
 					_it = _it->parent;
 					return (*this);
 				}
@@ -228,7 +238,16 @@ namespace ft
 
 		private:
 
-			bool is_nill(Nodes it) {
+			Nodes maximum(Nodes node) const
+			{
+				Nodes tmp = node;
+
+				while (!is_nill(tmp) && !is_nill(tmp->right))
+					tmp = tmp->right;
+				return (tmp);
+			}
+
+			bool is_nill(Nodes it) const {
 				if (it->left == NULL && it->right == NULL)
 					return (1);
 				return (0);

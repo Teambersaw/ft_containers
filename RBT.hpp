@@ -6,7 +6,7 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 10:46:36 by jrossett          #+#    #+#             */
-/*   Updated: 2023/03/06 16:55:40 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/03/13 17:01:16 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ namespace ft
 			~Node() {}
 	};
 
-	template <class Value, class allocator_type, class comp, class key_compare>
+	template <class Value, class allocator_type, class comp>
 	class RBT
 	{
 
@@ -45,12 +45,11 @@ namespace ft
 			RBT(comp compare) : _comp(compare)
 			{
 					nill = allocator.allocate(1);
+					root = nill;
 					nill->parent = nill;
 					nill->left = NULL;
 					nill->right = NULL;
 					nill->color = 0;
-					root = nill;
-					root->parent = nill;
 			}
 			~RBT()
 			{
@@ -378,6 +377,12 @@ namespace ft
 					}
 				}
 				node->color = 0;
+			}
+
+			void rbt_swap(RBT& x)
+			{
+				std::swap(x.nill, nill);
+				std::swap(x.root, root);
 			}
 
 		private:

@@ -6,7 +6,7 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:39:23 by jrossett          #+#    #+#             */
-/*   Updated: 2023/02/28 16:40:04 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/03/13 13:09:37 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,38 +37,6 @@ namespace ft
 			return (*this);
 		}
 
-		bool operator==( const pair<T1, T2>& rhs) {
-			return (this->first == rhs.first && this->second == rhs.second);
-		}
-
-		bool operator!=( const pair<T1, T2>& rhs) {
-			return (!(this->first == rhs.first && this->second == rhs.second));
-		}
-
-		bool operator<( const pair<T1, T2>& rhs) {
-			if (this->first == rhs.first)
-				return (this->second < rhs.second);
-			return (this->first < rhs.first);
-		}
-
-		bool operator<=( const pair<T1, T2>& rhs) {
-			if (this->first == rhs.first)
-				return (this->second <= rhs.second);
-			return (this->first <= rhs.first);
-		}
-
-		bool operator>( const pair<T1, T2>& rhs) {
-			if (this->first == rhs.first)
-				return (this->second > rhs.second);
-			return (this->first > rhs.first);
-		}
-
-		bool operator>=( const pair<T1, T2>& rhs) {
-			if (this->first == rhs.first)
-				return (this->second >= rhs.second);
-			return (this->first >= rhs.first);
-		}
-
 		first_type first;
 		second_type second;
 	};
@@ -76,6 +44,44 @@ namespace ft
 	template < class T1, class T2 >
 	pair<T1,T2> make_pair (T1 x, T2 y) {
 		return (pair<T1,T2>(x, y));
+	}
+
+	template < class T1, class T2 >
+	bool operator==( const pair<T1, T2>& lhs, const pair<T1, T2>& rhs) {
+		return (lhs.first == rhs.first && lhs.second == rhs.second);
+	}
+
+	template < class T1, class T2 >
+	bool operator!=( const pair<T1, T2>& lhs, const pair<T1, T2>& rhs) {
+		return (!(lhs.first == rhs.first && lhs.second == rhs.second));
+	}
+
+	template < class T1, class T2 >
+	bool operator<( const pair<T1, T2>& lhs, const pair<T1, T2>& rhs) {
+		if (lhs.first == rhs.first)
+			return (lhs.second < rhs.second);
+		return (lhs.first < rhs.first);
+	}
+
+	template < class T1, class T2 >
+	bool operator<=( const pair<T1, T2>& lhs, const pair<T1, T2>& rhs) {
+		if (lhs.first == rhs.first)
+			return (lhs.second <= rhs.second);
+		return (lhs.first <= rhs.first);
+	}
+
+	template < class T1, class T2 >
+	bool operator>( const pair<T1, T2>& lhs, const pair<T1, T2>& rhs) {
+		if (lhs.first == rhs.first)
+			return (lhs.second > rhs.second);
+		return (lhs.first > rhs.first);
+	}
+
+	template < class T1, class T2 >
+	bool operator>=( const pair<T1, T2>& lhs, const pair<T1, T2>& rhs) {
+		if (lhs.first == rhs.first)
+			return (lhs.second >= rhs.second);
+		return (lhs.first >= rhs.first);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 13:24:35 by jrossett          #+#    #+#             */
-/*   Updated: 2023/03/06 16:42:52 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:21:44 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,14 @@ namespace ft
 					value_compare (Compare c) : comp(c) {}
 			};
 
-			explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _comp(comp), _alloc(alloc), _tree(RBT<value_type, allocator_type, value_compare, key_compare>(value_compare(_comp))), _size(0) {}
+			explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _comp(comp), _alloc(alloc), _tree(RBT<value_type, allocator_type, value_compare>(value_compare(_comp))), _size(0) {}
 
 			template <class InputIterator>
-			map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())  : _comp(comp), _alloc(alloc), _tree(RBT<value_type, allocator_type, value_compare, key_compare>(value_compare(_comp))), _size(0) {
+			map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())  : _comp(comp), _alloc(alloc), _tree(RBT<value_type, allocator_type, value_compare>(value_compare(_comp))), _size(0) {
 				insert(first, last);
 			}
 
-			map (const map& x) : _comp(x._comp), _alloc(x._alloc), _tree(RBT<value_type, allocator_type, value_compare, key_compare>(value_compare(_comp))), _size(0) {
+			map (const map& x) : _comp(x._comp), _alloc(x._alloc), _tree(RBT<value_type, allocator_type, value_compare>(value_compare(_comp))), _size(0) {
 				insert(x.begin(), x.end());
 			}
 
@@ -155,7 +155,7 @@ namespace ft
 
 			iterator insert (iterator position, const value_type& val) {
 				(void) position;
-				return (insert(val).fisrt);
+				return (insert(val).first);
 			}
 
 			template <class InputIterator>
@@ -180,7 +180,6 @@ namespace ft
 
 			void erase (iterator first, iterator last) {
 				while (first != last) {
-					std::cout << "ah\n";
 					erase(first++);
 				}
 			}
@@ -192,8 +191,7 @@ namespace ft
 			void swap (map& x)
 			{
 				std::swap(this->_size, x._size);
-				std::swap(this->_tree.getNill(), x._tree.getNill());
-				std::swap(this->_tree.getRoot(), x._tree.getRoot());
+				this->_tree.rbt_swap(x._tree);
 			}
 
 			void clear() {
@@ -295,7 +293,7 @@ namespace ft
 
 			key_compare		_comp;
 			allocator_type	_alloc;
-			RBT<value_type, allocator_type, value_compare, key_compare>		_tree;
+			RBT<value_type, allocator_type, value_compare>		_tree;
 			size_type		_size;
 	};
 
