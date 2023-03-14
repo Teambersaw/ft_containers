@@ -275,16 +275,6 @@ namespace ft
 				Node<Value>	*y = node;
 				Node<Value>	*x;
 				bool	delcolor = y->color;
-				// if (node->left == nill && node->right == nill)
-				// {
-				// 	x = node->parent;
-				// 	if (node->parent == nill)
-				// 		root = node;
-				// 	else if (node == node->parent->left)
-				// 		node->parent->left = nill;
-				// 	else
-				// 		node->parent->right = nill;
-				// }
 				if (node->left == nill)
 				{
 					x = node->right;
@@ -397,7 +387,6 @@ namespace ft
 			}
 
 		private:
-		public:
 
 			Alloc			allocator;
 			Node<Value>		*root;

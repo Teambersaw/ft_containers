@@ -113,7 +113,6 @@ namespace ft
 			}
 
 		private:
-		public:
 
 			Nodes maximum(Nodes node) const
 			{
@@ -238,7 +237,6 @@ namespace ft
 			}
 
 		private:
-		public:
 
 			Nodes maximum(Nodes node) const
 			{
