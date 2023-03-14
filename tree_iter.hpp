@@ -22,12 +22,12 @@ namespace ft
 			RBiter() : _it() {}
 			RBiter(Nodes it) : _it(it) {}
 
-			RBiter(const RBiter<value_type> &x) : _it(x.base()) {}
+			RBiter(const RBiter<value_type> &x) : _it(x._it) {}
 
 			RBiter &operator=(const RBiter<value_type> &x) {
 				if (this == &x)
 					return (*this);
-				_it = x.base();
+				_it = x._it;
 				return (*this);
 			}
 
@@ -76,8 +76,6 @@ namespace ft
 			{
 				if (is_nill(_it))
 				{
-					std::cout << "ici" << std::endl;
-					std::cout << _it->parent->value.first << std::endl;
 					_it = _it->parent;
 					return (*this);
 				}
@@ -98,7 +96,9 @@ namespace ft
 					_it = tmp;
 				}
 				else
+				{
 					_it = _it->left;
+				}
 				return (*this);
 			}
 

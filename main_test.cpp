@@ -92,11 +92,11 @@ void	printSize(T_MAP const &mp, bool print_content = 1)
 	}
 }
 
-template <typename T_MAP>
-void print_info(T_MAP map)
+template <typename R>
+void print_info(R &map)
 {
 	std::cout << "\n\n###############################################" << std::endl;
-	printSize<T_MAP>(map);
+	printSize(map);
 	std::cout << "\n" << map << '\n';
 	std::cout << "Root value : " << map._tree.root->value.first << std::endl;
 	std::cout << "Max value : " << map._tree.maximum(map._tree.root)->value.first << std::endl;
@@ -116,18 +116,31 @@ int main()
 	map.insert(ft::make_pair(7, "H"));
 	map.insert(ft::make_pair(8, "I"));
 	map.insert(ft::make_pair(9, "J"));
-	print_info(map);
+	map.insert(ft::make_pair(10, "K"));
+	map.insert(ft::make_pair(11, "L"));
+	map.insert(ft::make_pair(12, "M"));
 
-	map.erase(++map.begin());
-	print_info(map);
-
-
+	std::cout << "begin" << std::endl;
 	map.erase(map.begin());
 	print_info(map);
 
-	std::cout << "Valeur de map.end()->parent : " << (map.end()).base()->parent->value.first << std::endl;
-	std::cout << "Valeur de --map.end() : " << (--map.end()).base()->value.first << std::endl;
+	std::cout << "--end" << std::endl;	
 	map.erase(--map.end());
+	map.erase(--map.end());
+	map.erase(--map.end());
+	map.erase(--map.end());
+	map.erase(--map.end());
+	map.erase(--map.end());
+	print_info(map);
+
+
+
+	map.erase(--(--(--map.end())));
+	print_info(map);
+
+	// map.erase(--(--(--map.end())));
+	// map.erase(--(--(--map.end())));
+
 	print_info(map);
 
 	return (0);

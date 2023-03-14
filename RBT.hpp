@@ -6,7 +6,7 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 10:46:36 by jrossett          #+#    #+#             */
-/*   Updated: 2023/03/13 17:01:16 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/03/14 16:21:41 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,6 +275,16 @@ namespace ft
 				Node<Value>	*y = node;
 				Node<Value>	*x;
 				bool	delcolor = y->color;
+				// if (node->left == nill && node->right == nill)
+				// {
+				// 	x = node->parent;
+				// 	if (node->parent == nill)
+				// 		root = node;
+				// 	else if (node == node->parent->left)
+				// 		node->parent->left = nill;
+				// 	else
+				// 		node->parent->right = nill;
+				// }
 				if (node->left == nill)
 				{
 					x = node->right;
@@ -303,9 +313,10 @@ namespace ft
 					y->left->parent = y;
 					y->color = delcolor;
 				}
-				allocator.deallocate(node, 1);
 				if (delcolor == 0)
 					delete_fix(x);
+				nill->parent = maximum(root);
+				allocator.deallocate(node, 1);
 			}
 
 			void	delete_fix(Node<Value>	*node)
