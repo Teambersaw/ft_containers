@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RBT.hpp                                            :+:      :+:    :+:   */
+/*   RBT_set.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/28 10:46:36 by jrossett          #+#    #+#             */
-/*   Updated: 2023/03/15 16:05:45 by jrossett         ###   ########.fr       */
+/*   Created: 2023/03/15 15:27:50 by jrossett          #+#    #+#             */
+/*   Updated: 2023/03/15 15:34:39 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RBT_HPP
-# define RBT_HPP
+#ifndef RBT_SET_HPP
+# define RBT_SET_HPP
 
 # include <memory>
 # include <iostream>
@@ -35,14 +35,14 @@ namespace ft
 	};
 
 	template <class Value, class allocator_type, class comp>
-	class RBT
+	class RBT_SET
 	{
 
 		public:
 
 			typedef typename allocator_type::template rebind<Node<Value> >::other Alloc;
 
-			RBT(comp compare) : _comp(compare)
+			RBT_SET(comp compare) : _comp(compare)
 			{
 					nill = allocator.allocate(1);
 					allocator.construct(nill, Value());
@@ -52,7 +52,7 @@ namespace ft
 					nill->right = NULL;
 					nill->color = 0;
 			}
-			virtual ~RBT()
+			virtual ~RBT_SET()
 			{
 				if (root != NULL && root != nill)
 					delete_all(root);
@@ -381,7 +381,7 @@ namespace ft
 				node->color = 0;
 			}
 
-			void rbt_swap(RBT& x)
+			void rbt_swap(RBT_SET& x)
 			{
 				std::swap(x.nill, nill);
 				std::swap(x.root, root);
@@ -389,6 +389,7 @@ namespace ft
 
 		private:
 
+			allocator_type	allo;
 			Alloc			allocator;
 			Node<Value>		*root;
 			comp			_comp;

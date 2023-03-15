@@ -6,7 +6,7 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 10:46:36 by jrossett          #+#    #+#             */
-/*   Updated: 2023/03/15 16:05:45 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/03/15 15:34:54 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -389,6 +389,7 @@ namespace ft
 
 		private:
 
+			allocator_type	allo;
 			Alloc			allocator;
 			Node<Value>		*root;
 			comp			_comp;

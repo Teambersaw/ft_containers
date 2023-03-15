@@ -4,6 +4,7 @@
 #include <iostream>
 #include <map>
 #include <iterator>
+#include "vector.hpp"
 using namespace ft;
 
 #define RED_COLOR "\e[0;31m"
