@@ -6,7 +6,7 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 13:24:35 by jrossett          #+#    #+#             */
-/*   Updated: 2023/03/16 14:09:05 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/03/16 16:29:31 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ namespace ft
 			typedef	typename	ft::iterator_traits<iterator>::difference_type	difference_type;
 			typedef				std::size_t										size_type;
 
-			class value_compare: public std::binary_function<value_type, value_type, bool>
+			class value_compare
 			{
 				private:
 					friend class map;
@@ -137,20 +137,14 @@ namespace ft
 				return (const_reverse_iterator(_tree.min()));
 			}
 
+			typedef Node<value_type>*	node_t;
 			ft::pair<iterator,bool> insert (const value_type& val)
 			{
-				ft::pair<iterator, bool>	pr;
-
-				pr.first = find(val.first);
-				if (pr.first == end())
-				{
-					pr.first = iterator(_tree.insert_node(val));
-					pr.second = true;
-					_size++;
-				}
-				else
-					pr.second = false;
-				return (pr);
+				node_t ptr = _tree.insert_node(val);
+				if (ptr == _tree.getNill())
+					return (ft::make_pair(find(val.first), false));
+				_size++;
+				return (ft::make_pair(iterator(ptr), true));
 			}
 
 			iterator insert (iterator position, const value_type& val) {

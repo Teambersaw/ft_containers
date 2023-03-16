@@ -6,7 +6,7 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 10:46:36 by jrossett          #+#    #+#             */
-/*   Updated: 2023/03/16 14:09:30 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/03/16 16:34:44 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ namespace ft
 						tmp = tmp->left;
 					else if (_comp(tmp->value, value))
 						tmp = tmp->right;
+					else
+						return (nill);
 				}
 				if (_comp(value, parent->value))
 				{
