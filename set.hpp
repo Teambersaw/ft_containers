@@ -6,7 +6,7 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 15:26:03 by jrossett          #+#    #+#             */
-/*   Updated: 2023/03/15 16:21:37 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/03/16 14:10:13 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ namespace ft
 			typedef				T												key_type;
 			typedef				T												value_type;
 			typedef				Compare											key_compare;
+			typedef				Compare											value_compare;
 			typedef				Alloc											allocator_type;
 			typedef	typename	allocator_type::reference						reference;
 			typedef	typename	allocator_type::const_reference					const_reference;
@@ -54,7 +55,7 @@ namespace ft
 				insert(x.begin(), x.end());
 			}
 
-			~set() {}
+			virtual ~set() {}
 
 			set& operator= (const set& x)
 			{

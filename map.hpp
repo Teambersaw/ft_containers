@@ -6,7 +6,7 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 13:24:35 by jrossett          #+#    #+#             */
-/*   Updated: 2023/03/15 15:17:36 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/03/16 14:09:05 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ namespace ft
 				insert(x.begin(), x.end());
 			}
 
-			~map() {}
+			virtual ~map() {}
 
 			map& operator= (const map& x)
 			{

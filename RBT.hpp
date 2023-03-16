@@ -6,7 +6,7 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 10:46:36 by jrossett          #+#    #+#             */
-/*   Updated: 2023/03/15 16:05:45 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/03/16 14:09:30 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,16 +104,18 @@ namespace ft
 				if (_comp(value, parent->value))
 				{
 					parent->left = new_node(value, parent);
+					tmp = parent->left;
 					if (parent->color == 1)
 						insert_fix(parent->left);
-					return parent->left;
+					return tmp;
 				}
 				else if (_comp(parent->value, value))
 				{
 					parent->right = new_node(value, parent);
+					tmp = parent->right;
 					if (parent->color == 1)
 						insert_fix(parent->right);
-					return parent->right;
+					return tmp;
 				}
 				return (NULL);
 			}
@@ -304,7 +306,7 @@ namespace ft
 					y->left->parent = y;
 					y->color = delcolor;
 				}
-				if (delcolor == 0)
+				if (delcolor == 0 && x != nill)
 					delete_fix(x);
 				nill->parent = maximum(root);
 				allocator.deallocate(node, 1);

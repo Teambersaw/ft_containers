@@ -106,43 +106,47 @@ void print_info(R &map)
 }
 int main()
 {
-	ft::map<int, const char*> map;
-	map.insert(ft::make_pair(0, "A"));
-	map.insert(ft::make_pair(1, "B"));
-	map.insert(ft::make_pair(2, "C"));
-	map.insert(ft::make_pair(3, "D"));
-	map.insert(ft::make_pair(4, "E"));
-	map.insert(ft::make_pair(5, "F"));
-	map.insert(ft::make_pair(6, "G"));
-	map.insert(ft::make_pair(7, "H"));
-	map.insert(ft::make_pair(8, "I"));
-	map.insert(ft::make_pair(9, "J"));
-	map.insert(ft::make_pair(10, "K"));
-	map.insert(ft::make_pair(11, "L"));
-	map.insert(ft::make_pair(12, "M"));
-
-	std::cout << "begin" << std::endl;
-	map.erase(map.begin());
+	ft::map<std::string, int> map;
+	map.insert(ft::make_pair("lol", 1));
+	map.insert(ft::make_pair("mdr", 1));
+	map.insert(ft::make_pair("mdr", 1));
+	map.insert(ft::make_pair("funny", 1));
+	print_info(map);
+	map.insert(ft::make_pair("bunny", 1));
+	print_info(map);
+	map.insert(ft::make_pair("fizz", 1));
 	print_info(map);
 
-	std::cout << "--end" << std::endl;	
-	map.erase(--map.end());
-	map.erase(--map.end());
-	map.erase(--map.end());
-	map.erase(--map.end());
-	map.erase(--map.end());
-	map.erase(--map.end());
+	map.insert(ft::make_pair("buzz", 1));
+	map.insert(ft::make_pair("fuzzy", 1));
+	// map.insert(ft::make_pair(8, "I"));
+	// map.insert(ft::make_pair(9, "J"));
+	// map.insert(ft::make_pair(10, "K"));
+	// map.insert(ft::make_pair(11, "L"));
+	// map.insert(ft::make_pair(12, "M"));
+
+	// std::cout << "begin" << std::endl;
+	// map.erase(map.begin());
 	print_info(map);
 
+	// std::cout << "--end" << std::endl;	
+	// map.erase(--map.end());
+	// map.erase(--map.end());
+	// map.erase(--map.end());
+	// map.erase(--map.end());
+	// map.erase(--map.end());
+	// map.erase(--map.end());
+	// print_info(map);
 
 
-	map.erase(--(--(--map.end())));
-	print_info(map);
+
+	//map.erase(--(--(--map.end())));
+//	print_info(map);
 
 	// map.erase(--(--(--map.end())));
 	// map.erase(--(--(--map.end())));
 
-	print_info(map);
+	//print_info(map);
 
 	return (0);
 }
