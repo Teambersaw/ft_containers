@@ -43,6 +43,7 @@ namespace ft
 			typedef				ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 			typedef	typename	ft::iterator_traits<iterator>::difference_type	difference_type;
 			typedef				std::size_t										size_type;
+			typedef Node<value_type>*											node_t;
 
 			class value_compare
 			{
@@ -137,7 +138,6 @@ namespace ft
 				return (const_reverse_iterator(_tree.min()));
 			}
 
-			typedef Node<value_type>*	node_t;
 			ft::pair<iterator,bool> insert (const value_type& val)
 			{
 				node_t ptr = _tree.insert_node(val);

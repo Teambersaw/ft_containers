@@ -43,6 +43,7 @@ namespace ft
 			typedef				ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 			typedef	typename	ft::iterator_traits<iterator>::difference_type	difference_type;
 			typedef				std::size_t										size_type;
+			typedef Node<value_type>*											node_t;
 
 			explicit set (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _comp(comp), _alloc(alloc), _tree(RBT<key_type, allocator_type, Compare>(_comp)), _size(0) {}
 
@@ -112,18 +113,11 @@ namespace ft
 
 			ft::pair<iterator,bool> insert (const key_type& val)
 			{
-				ft::pair<iterator, bool>	pr;
-
-				pr.first = find(val);
-				if (pr.first == end())
-				{
-					pr.first = iterator(_tree.insert_node(val));
-					pr.second = true;
-					_size++;
-				}
-				else
-					pr.second = false;
-				return (pr);
+				node_t ptr = _tree.insert_node(val);
+				if (ptr == _tree.getNill())
+					return (ft::make_pair(find(val.first), false));
+				_size++;
+				return (ft::make_pair(iterator(ptr), true));
 			}
 
 			iterator insert (iterator position, const key_type& val) {
