@@ -1,14 +1,25 @@
-#include <vector>
-#include "vector.hpp"
-#include "stack.hpp"
-#include <stack>
+#include <iostream>
+#include <string>
 #include <list>
-#include "map.hpp"
-#include <map>
-#include "pair.hpp"
-#include <utility>
+#include <cstdlib>
+#if 1
+	#define NS std;
+	#include <vector>
+	#include <stack>
+	#include <map>
+	#include <utility>
+	#include <set>
+#else
+	#define NS ft;
+	#include "vector.hpp"
+	#include "stack.hpp"
+	#include "map.hpp"
+	#include "pair.hpp"
+	#include "set.hpp"
+#endif
 
-using namespace std;
+
+using namespace NS;
 
 class test
 {
@@ -43,6 +54,17 @@ void print_map(map<T1, T2> const &mymap)
 	std::cout << std::endl << std::endl;
 }
 
+template <class T1>
+void print_set(set<T1> const &myset)
+{
+	std::cout << "size : " << myset.size() << "\nempty set : " << myset.empty() << "\nmax size : " << myset.max_size() << std::endl;
+	for (typename set<T1>::const_iterator it = myset.begin(); it != myset.end(); it++)
+	{
+		std::cout << "Value :" << *it << std::endl;
+	}
+	std::cout << std::endl << std::endl;
+}
+
 template <class T>
 void print_vect(vector<T> const &myvector)
 {
@@ -55,7 +77,7 @@ void print_vect(vector<T> const &myvector)
 }
 
 
-int main()
+void vect_test()
 {
 	std::cout << "\033[31m" << "\n\n#################################VECTOR TEST#############################\n" << "\033[0m\n" << std::endl;
 
@@ -198,8 +220,8 @@ int main()
 
 
 	std::cout << "\033[31m" << "\n######## RELATIONAL OPERATOR TEST ########\n" << "\033[0m\n" << std::endl;
-	vector<int> foo (10,200);
-	vector<int> bar (50,600);
+	vector<int> foo (10, 200);
+	vector<int> bar (50, 600);
 	if (foo==bar) std::cout << "foo and bar are equal\n";
 	if (foo!=bar) std::cout << "foo and bar are not equal\n";
 	if (foo<bar) std::cout << "foo is less than bar\n";
@@ -232,13 +254,15 @@ int main()
 	print_vect(myvector5);
 
 	std::cout << "iterator print myvector 5" << std::endl;
-	for (typename vector<int>::const_iterator it = myvector5.begin(); it != myvector5.end(); it++)
+	for (vector<int>::iterator it = myvector5.begin(); it != myvector5.end(); it++)
 	{
 		std::cout << "[" << *it << "] ";
 	}
 	std::cout << std::endl << std::endl;
+}
 
-
+void stack_test()
+{
 	std::cout << "\033[31m" << "\n######## STACK TEST ########\n" << "\033[0m\n" << std::endl;
 
 	{
@@ -328,7 +352,10 @@ int main()
 	}
 
 	std::cout << "\n\n";
+}
 
+void map_test()
+{
 	std::cout << "\033[31m" << "\n######## MAP TEST ########\n" << "\033[0m\n" << std::endl;
 
 	std::cout << "\033[31m" << "######## CONSTRUCTOR OPERATOR TEST ########\n" << "\033[0m\n" << std::endl;
@@ -443,7 +470,7 @@ int main()
 	print_map(mymap_insert);
 
 	std::cout << "\033[31m" << "######## Relational operator/swap ########\n" << "\033[0m\n" << std::endl;
-	map<char,int> foo_m, bar_m;
+	map<char, int> foo_m, bar_m;
 	foo_m['a']=100;
 	foo_m['b']=200;
 	bar_m['a']=10;
@@ -469,6 +496,162 @@ int main()
 	if (foo_m> bar_m) std::cout << "foo_m is greater than bar_m\n";
 	if (foo_m<=bar_m) std::cout << "foo_m is less than or equal to bar_m\n";
 	if (foo_m>=bar_m) std::cout << "foo_m is greater than or equal to bar_m\n";
+}
 
+void set_test()
+{
+	std::cout << "\033[31m" << "######## SET TEST ########\n" << "\033[0m\n" << std::endl;
+
+	std::cout << "\033[31m" << "######## CONSTRUCTOR OPERATOR TEST ########\n" << "\033[0m\n" << std::endl;
+	
+	set<int> myset;
+	print_set(myset);
+	myset.insert(2);
+	myset.insert(12);
+	myset.insert(96);
+	myset.insert(77);
+	myset.insert(85);
+	myset.insert(42);
+	myset.insert(4);
+	std::cout << "myset :\n";
+	print_set(myset);
+
+	std::cout << "myset2 copy  iterator myset :\n";
+	set<int> myset2(myset.begin(), myset.end());
+	print_set(myset2);
+
+	std::cout << "myset3 copy construct myset2 :\n";
+	set<int> myset3(myset2);
+	print_set(myset3);
+
+	std::cout << "myset4 operator = myset3 :\n";
+	set<int> myset4 = myset3;
+	print_set(myset4);
+
+	std::cout << "\033[31m" << "######## Upper/Lower bound, equal range test ########\n" << "\033[0m\n" << std::endl;
+	
+	set<int> mysets;
+	set<int>::iterator itlow_set, itup_set;
+
+
+	itlow_set=mysets.lower_bound(77);
+	itup_set=mysets.upper_bound(42);
+
+	std::cout << "low : " << *itlow_set << '\n';
+	std::cout << "up : " << *itup_set << '\n';
+
+	std::cout << "\nmysets :\n";
+	print_set(mysets);
+
+	std::cout << "equal range test : \n";
+	pair<set<int>::iterator, set<int>::iterator> ret_sets;
+	ret_sets = mysets.equal_range('b');
+	std::cout << "lower bound points to: ";
+	std::cout << *ret_sets.first << " => " << *ret_sets.second << '\n';
+
+	std::cout << "upper bound points to: ";
+	std::cout << *ret_sets.first << " => " << *ret_sets.second << '\n';
+
+	std::cout << "\033[31m" << "######## modifiers test ########\n" << "\033[0m\n" << std::endl;
+
+	std::cout << "myset :\n";
+	print_set(myset);
+
+	set<int> myset_insert;
+	myset_insert.insert((120));
+	myset_insert.insert((15));
+	myset_insert.insert((28));
+	myset_insert.insert((33));
+	myset_insert.insert((55));
+	myset_insert.insert((99));
+	myset_insert.insert((57));
+	std::cout << "myset_insert :\n";
+	print_set(myset_insert);
+
+	myset.insert(myset_insert.begin(), myset_insert.end());
+	std::cout << "myset insert(myset_insert.begin(), myset_insert.end()):\n";
+	print_set(myset);
+
+
+	std::cout << "myset_insert clear :\n";
+	myset_insert.clear();
+	print_set(myset_insert);
+
+
+	myset.erase((++(++(++(myset.begin())))));
+	myset.erase((--(--(--(myset.end())))));
+	myset.erase(33);
+	std::cout << "myset :\n";
+	print_set(myset);
+
+	std::cout << "reverse iterator myset : " << std::endl;
+	set<int>::reverse_iterator rit_set;
+	for (rit_set = myset.rbegin(); rit_set != myset.rend(); ++rit_set)
+		std::cout << *rit_set << '\n';
+
+	std::cout << "\nmyset.swap(myset_insert)" << std::endl;
+	myset.swap(myset_insert);
+	std::cout << "myset :\n";
+	print_set(myset);
+
+	std::cout << "myset_insert :\n";
+	print_set(myset_insert);
+
+	std::cout << "\033[31m" << "######## Relational operator/swap ########\n" << "\033[0m\n" << std::endl;
+	set<char> foo_set, bar_set;
+	foo_set.insert('a'); 
+	foo_set.insert('b'); 
+	bar_set.insert('a'); 
+	bar_set.insert('z'); 
+
+
+	if (foo_set==bar_set) std::cout << "\nfoo_set and bar_set are equal\n";
+	if (foo_set!=bar_set) std::cout << "foo_set and bar_set are not equal\n";
+	if (foo_set< bar_set) std::cout << "foo_set is less than bar_set\n";
+	if (foo_set> bar_set) std::cout << "foo_set is greater than bar_set\n";
+	if (foo_set<=bar_set) std::cout << "foo_set is less than or equal to bar_set\n";
+	if (foo_set>=bar_set) std::cout << "foo_set is greater than or equal to bar_set\n";
+	swap(foo_set, bar_set);
+	if (foo_set==bar_set) std::cout << "\nfoo_set and bar_set are equal\n";
+	if (foo_set!=bar_set) std::cout << "\nfoo_set and bar_set are not equal\n";
+	if (foo_set< bar_set) std::cout << "foo_set is less than bar_set\n";
+	if (foo_set> bar_set) std::cout << "foo_set is greater than bar_set\n";
+	if (foo_set<=bar_set) std::cout << "foo_set is less than or equal to bar_set\n";
+	if (foo_set>=bar_set) std::cout << "foo_set is greater than or equal to bar_set\n";
+	foo_set = bar_set;
+	if (foo_set==bar_set) std::cout << "\nfoo_set and bar_set are equal\n";
+	if (foo_set!=bar_set) std::cout << "foo_set and bar_set are not equal\n";
+	if (foo_set< bar_set) std::cout << "foo_set is less than bar_set\n";
+	if (foo_set> bar_set) std::cout << "foo_set is greater than bar_set\n";
+	if (foo_set<=bar_set) std::cout << "foo_set is less than or equal to bar_set\n";
+	if (foo_set>=bar_set) std::cout << "foo_set is greater than or equal to bar_set\n";
+}
+
+void speed_test(const char *av)
+{
+	unsigned int sid = atoi(av); 
+	srand(sid);
+	// map<int, int> mymap;
+	// for (int i = 0; i < 3000000; i++)
+	// {
+	// 	mymap.insert(make_pair(rand(), i));
+	// }
+
+	vector<int> myvector;
+	for (int i = 0; i < 50000; i++)
+	{
+		myvector.insert(myvector.begin() + (i/2), i);
+	}
+
+}
+
+int main(int ac, char **av)
+{
+	// vect_test();
+	// stack_test();
+	// map_test();
+	// set_test();
+	if (ac != 1)
+		speed_test(av[1]);
 	return (0);
 }

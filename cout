@@ -449,3 +449,204 @@ foo_m is less than or equal to bar_m
 foo_m and bar_m are equal
 foo_m is less than or equal to bar_m
 foo_m is greater than or equal to bar_m
+[31m######## SET TEST ########
+[0m
+
+[31m######## CONSTRUCTOR OPERATOR TEST ########
+[0m
+
+size : 0
+empty set : 1
+max size : 230584300921369395
+
+
+myset :
+size : 7
+empty set : 0
+max size : 230584300921369395
+Value :2
+Value :4
+Value :12
+Value :42
+Value :77
+Value :85
+Value :96
+
+
+myset2 copy  iterator myset :
+size : 7
+empty set : 0
+max size : 230584300921369395
+Value :2
+Value :4
+Value :12
+Value :42
+Value :77
+Value :85
+Value :96
+
+
+myset3 copy construct myset2 :
+size : 7
+empty set : 0
+max size : 230584300921369395
+Value :2
+Value :4
+Value :12
+Value :42
+Value :77
+Value :85
+Value :96
+
+
+myset4 operator = myset3 :
+size : 7
+empty set : 0
+max size : 230584300921369395
+Value :2
+Value :4
+Value :12
+Value :42
+Value :77
+Value :85
+Value :96
+
+
+[31m######## Upper/Lower bound, equal range test ########
+[0m
+
+low : 0
+up : 0
+
+mysets :
+size : 0
+empty set : 1
+max size : 230584300921369395
+
+
+equal range test : 
+lower bound points to: 0 => 0
+upper bound points to: 0 => 0
+[31m######## modifiers test ########
+[0m
+
+myset :
+size : 7
+empty set : 0
+max size : 230584300921369395
+Value :2
+Value :4
+Value :12
+Value :42
+Value :77
+Value :85
+Value :96
+
+
+myset_insert :
+size : 7
+empty set : 0
+max size : 230584300921369395
+Value :15
+Value :28
+Value :33
+Value :55
+Value :57
+Value :99
+Value :120
+
+
+myset insert(myset_insert.begin(), myset_insert.end()):
+size : 14
+empty set : 0
+max size : 230584300921369395
+Value :2
+Value :4
+Value :12
+Value :15
+Value :28
+Value :33
+Value :42
+Value :55
+Value :57
+Value :77
+Value :85
+Value :96
+Value :99
+Value :120
+
+
+myset_insert clear :
+size : 0
+empty set : 1
+max size : 230584300921369395
+
+
+myset :
+size : 11
+empty set : 0
+max size : 230584300921369395
+Value :2
+Value :4
+Value :12
+Value :28
+Value :42
+Value :55
+Value :57
+Value :77
+Value :85
+Value :99
+Value :120
+
+
+reverse iterator myset : 
+120
+99
+85
+77
+57
+55
+42
+28
+12
+4
+2
+
+myset.swap(myset_insert)
+myset :
+size : 0
+empty set : 1
+max size : 230584300921369395
+
+
+myset_insert :
+size : 11
+empty set : 0
+max size : 230584300921369395
+Value :2
+Value :4
+Value :12
+Value :28
+Value :42
+Value :55
+Value :57
+Value :77
+Value :85
+Value :99
+Value :120
+
+
+[31m######## Relational operator/swap ########
+[0m
+
+foo_set and bar_set are not equal
+foo_set is less than bar_set
+foo_set is less than or equal to bar_set
+
+foo_set and bar_set are not equal
+foo_set is greater than bar_set
+foo_set is greater than or equal to bar_set
+
+foo_set and bar_set are equal
+foo_set is less than or equal to bar_set
+foo_set is greater than or equal to bar_set

@@ -6,7 +6,7 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 13:24:35 by jrossett          #+#    #+#             */
-/*   Updated: 2023/03/16 16:29:31 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/03/17 15:25:53 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,8 @@ namespace ft
 			}
 
 			mapped_type& operator[] (const key_type& k) {
-				iterator f = find(k);
-				if (f == end())
-					return (insert(ft::make_pair(k, mapped_type())).first->second);
-				return (f->second);
+				iterator i = this->insert(ft::make_pair(k,mapped_type())).first;
+				return (i->second);
 			}
 
 			bool empty() const {
@@ -140,11 +138,11 @@ namespace ft
 
 			ft::pair<iterator,bool> insert (const value_type& val)
 			{
-				node_t ptr = _tree.insert_node(val);
-				if (ptr == _tree.getNill())
-					return (ft::make_pair(find(val.first), false));
+				ft::pair<Node<value_type> *, bool>	pr = _tree.insert_node(val);
+				if (!pr.second)
+					return (pr);
 				_size++;
-				return (ft::make_pair(iterator(ptr), true));
+				return (pr);
 			}
 
 			iterator insert (iterator position, const value_type& val) {

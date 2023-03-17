@@ -6,7 +6,7 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 10:46:36 by jrossett          #+#    #+#             */
-/*   Updated: 2023/03/16 16:34:44 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/03/17 15:27:36 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,12 @@ namespace ft
 				return (New);
 			}
 
-			Node<Value>	*insert_node(Value value)
+			ft::pair<Node<Value>*, bool> insert_node(Value value)
 			{
 				if (root == nill) {
 					root = new_node(value, nill);
 					root->color = 0;
-					return root;
+					return (ft::make_pair(root, true));;
 				}
 				Node<Value>	*parent;
 				Node<Value>	*tmp = root;
@@ -101,7 +101,7 @@ namespace ft
 					else if (_comp(tmp->value, value))
 						tmp = tmp->right;
 					else
-						return (nill);
+						return (ft::make_pair(tmp, false));
 				}
 				if (_comp(value, parent->value))
 				{
@@ -109,7 +109,7 @@ namespace ft
 					tmp = parent->left;
 					if (parent->color == 1)
 						insert_fix(parent->left);
-					return tmp;
+					return (ft::make_pair(tmp, true));
 				}
 				else if (_comp(parent->value, value))
 				{
@@ -117,9 +117,9 @@ namespace ft
 					tmp = parent->right;
 					if (parent->color == 1)
 						insert_fix(parent->right);
-					return tmp;
+					return (ft::make_pair(tmp, true));
 				}
-				return (NULL);
+				return (ft::make_pair(nill, false));
 			}
 
 			void	insert_fix(Node<Value> *n)

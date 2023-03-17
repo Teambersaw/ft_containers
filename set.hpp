@@ -6,7 +6,7 @@
 /*   By: jrossett <jrossett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 15:26:03 by jrossett          #+#    #+#             */
-/*   Updated: 2023/03/16 14:10:13 by jrossett         ###   ########.fr       */
+/*   Updated: 2023/03/17 15:25:55 by jrossett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,13 +111,13 @@ namespace ft
 				return (const_reverse_iterator(_tree.min()));
 			}
 
-			ft::pair<iterator,bool> insert (const key_type& val)
+			ft::pair<iterator,bool> insert (const value_type& val)
 			{
-				node_t ptr = _tree.insert_node(val);
-				if (ptr == _tree.getNill())
-					return (ft::make_pair(find(val.first), false));
+				ft::pair<Node<value_type> *, bool>	pr = _tree.insert_node(val);
+				if (!pr.second)
+					return (pr);
 				_size++;
-				return (ft::make_pair(iterator(ptr), true));
+				return (pr);
 			}
 
 			iterator insert (iterator position, const key_type& val) {
