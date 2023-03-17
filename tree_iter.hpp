@@ -112,7 +112,7 @@ namespace ft
 				return (_it);
 			}
 
-		public:
+		private:
 
 			bool is_nill(Nodes it) const {
 				if (it->left == NULL && it->right == NULL)
