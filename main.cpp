@@ -142,6 +142,7 @@
 # include "set.hpp"
 #endif
 
+using namespace NS;
 
 class test
 {
@@ -766,13 +767,15 @@ void speed_test()
 
 }
 
-int main()
+int main(int ac, char **av)
 {
+	(void) av;
 	vect_test();
 	stack_test();
 	map_test();
 	set_test();
-	speed_test();
+	if (ac != 1)
+		speed_test();
 	return (0);
 }
 
