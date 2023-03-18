@@ -3,38 +3,45 @@ CXX= c++
 CXXFLAGS= -Wall -Wextra -Werror -std=c++98 -MMD
 
 SRCS= main.cpp
-SRCS2= main2.cpp
 
-OBJS= ${SRCS:.cpp=.o}
-OBJS2= ${SRCS2:.cpp=.o}
+FT_DIR= objs/ft/
+STD_DIR= objs/std/
+D_OBJS= objs
 
-OBJD= ${SRCS:.cpp=.d}
-OBJD2= ${SRCS2:.cpp=.d}
+OBJS_FT= $(patsubst %.cpp, $(FT_DIR)%.o, $(SRCS))
+OBJS_STD= $(patsubst %.cpp, $(STD_DIR)%.o, $(SRCS))
 
-NAME= ft_containers
-NAME_STD = ft_containers_std
+OBJD_FT= $(patsubst %.cpp, $(FT_DIR)%.d, $(SRCS))
+OBJD_STD= $(patsubst %.cpp, $(STD_DIR)%.d, $(SRCS))
 
-%.o : %.cpp
-	${CXX} ${CXXFLAGS} -c $< -o $@
+NAME= containers_ft
+NAME_STD= containers_std
 
-all:	${NAME} ${NAME_STD}
+$(FT_DIR)%.o: %.cpp
+	@mkdir -p $(FT_DIR)
+	$(CXX) $(CXXFLAGS) -D NS=ft -c $< -o $@
 
-${NAME}: ${OBJS}
-	${CXX} ${CXXFLAGS} ${OBJS} -o ${NAME}
+$(STD_DIR)%.o: %.cpp
+	@mkdir -p $(STD_DIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-${NAME_STD}: ${OBJS2}
-	${CXX} ${CXXFLAGS} ${OBJS2} -o ${NAME_STD}
+all: $(NAME) $(NAME_STD)
+
+$(NAME): $(OBJS_FT)
+	$(CXX) $(CXXFLAGS) $(OBJS_FT) -o $(NAME)
+
+$(NAME_STD): $(OBJS_STD)
+	$(CXX) $(CXXFLAGS) $(OBJS_STD) -o $(NAME_STD)
 
 clean:
-	rm -f ${OBJS} ${OBJD} ${OBJS2} ${OBJD2}
+	rm -rf $(D_OBJS)
 
 fclean: clean
-	rm -f ${NAME_STD} ${NAME}
+	rm -rf $(NAME) $(NAME_STD)
 
 re: fclean
 	$(MAKE) all
 
--include ${OBJD} ${OBJD2}
+-include $(OBJD_FT) $(OBJD_STD)
 
-
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re time
